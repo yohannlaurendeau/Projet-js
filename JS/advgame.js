@@ -3,6 +3,9 @@ var startBtn = document.getElementById('startBtn');
 var scoreBtn = document.getElementById('scoreBtn');
 var soundBtn = document.getElementById('soundBtn');
 
+var sound = new Audio();
+sound.src = "https://felgo.com/web-assets/pop.wav";
+
 var map = [
     [1,1,0,1,1,1,1,1,1,1], // 0 signifie case ou on peut se deplacer et 1 case "interdite"
     [1,0,0,1,1,1,1,0,0,1],
@@ -92,6 +95,7 @@ function init() {
     startBtn.style.display = 'none';
     scoreBtn.style.display = 'none';
     soundBtn.style.display = 'none';
+    
     canvas = document.querySelector('#canvas');
     this.ctx = canvas.getContext('2d');
 
