@@ -1,6 +1,5 @@
 var title = document.getElementById('title');
-var startBtn = document.getElementById('startBtn');
-var scoreBtn = document.getElementById('scoreBtn');
+var buttons = document.getElementsByClassName('buttons');
 var soundBtn = document.getElementById('soundBtn');
 
 var sound = new Audio();
@@ -92,10 +91,10 @@ function dessinerMap(){
 
 function init() {
     title.style.display = 'none';
-    startBtn.style.display = 'none';
-    scoreBtn.style.display = 'none';
     soundBtn.style.display = 'none';
+  	buttons[0].style.visibility = 'hidden';
     
+
     canvas = document.querySelector('#canvas');
     this.ctx = canvas.getContext('2d');
 

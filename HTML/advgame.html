@@ -8,8 +8,10 @@
 <body>
   <p id="title">Adventure game !</p>
   <canvas id="canvas" width="800" height="800"></canvas>
-  <button type="button" id="startBtn" onmouseover="sound.play()" onclick="init()">Start</button>
-  <button type="button" id="scoreBtn" onmouseover="sound.play()" onclick="">Score</button>
+  <div class="buttons">
+  	<button type="button" id="startBtn" onmouseover="sound.play()" onclick="init()">Start</button>
+  	<button type="button" id="scoreBtn" onmouseover="sound.play()" onclick="">Score</button>  	
+  </div>
   <button type="button" id="soundBtn" onclick="soundGestion()">Sound</button>
   <script type="text/javascript" src="./../JS/advgame.js"></script>
 

@@ -1,5 +1,5 @@
-#Canvas {
-  border: 1px solid black;
+#canvas {
+  border: 2px solid black;
 }
 
 
@@ -8,15 +8,19 @@
 p{
   position: absolute;
   top: 50px;
-  left: 180px;
+  left: 260px;
   font-size: 40px;
 }
 
+.buttons {
+  position: absolute;
+  display: inline-grid;
+  grid-row-gap: 100px;
+  top: 300px;
+  left: 320px;
+}
 
 #startBtn {
-  position: absolute;
-  top: 200px;
-  left: 240px;
   width: 150px;
   height: 50px;
   border-radius: 12px;
@@ -28,9 +32,6 @@ p{
 }
 
 #scoreBtn {
-  position: absolute;
-  top: 350px;
-  left: 240px;
   width: 150px;
   height: 50px;
   border-radius: 12px;
@@ -43,6 +44,10 @@ p{
 
 #soundBtn{
   position: absolute;
-  left: 40px;
-  bottom: 10px;
+  bottom: 110px;
+  left: 20px;
+  width: 55px;
+  height: 40px;
 }
+
+
