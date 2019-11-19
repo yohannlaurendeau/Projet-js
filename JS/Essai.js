@@ -14,7 +14,7 @@ var map = [
 var victoire = false;
 
 class Carre{
-    constructor(ctx, keys) {
+    constructor(ctx,keys) {
         this.ctx = ctx;
         this.keys = keys;
         this.x = 0*80;
