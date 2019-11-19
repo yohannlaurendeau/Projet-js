@@ -1,3 +1,10 @@
+var title = document.getElementById('title');
+var buttons = document.getElementsByClassName('buttons');
+var soundBtn = document.getElementById('soundBtn');
+
+var sound = new Audio();
+sound.src = "https://felgo.com/web-assets/pop.wav";
+
 var map = [
     [1,1,0,1,1,1,1,1,1,1], // 0 signifie case ou on peut se deplacer et 1 case "interdite"
     [1,0,0,1,1,1,1,0,0,1],
@@ -50,6 +57,7 @@ class Carre{
 
         // Condition de victoire
         if (map[this.x/80][this.y/80] == 2){
+        	console.log("Victoire");
             victoire = true;
         }
 
@@ -76,12 +84,12 @@ function dessinerMap(){
             var monImage = new Image();
 
             if (map[j][i] == 0){
-                monImage.src ="0.png";
+                monImage.src ="./Images/0.png";
                 images.push(monImage);
                 this.ctx.drawImage(monImage, j*80, i*80);
             }
             else {
-                monImage.src ="1.png";
+                monImage.src ="./Images/1.png";
                 images.push(monImage);
 
                 this.ctx.drawImage(monImage, j*80,i*80);
@@ -91,6 +99,9 @@ function dessinerMap(){
 }
 
 function init() {
+    title.style.display = 'none';
+    soundBtn.style.display = 'none';
+    buttons[0].style.visibility = 'hidden';
     canvas = document.querySelector('#canvas');
     this.ctx = canvas.getContext('2d');
 
@@ -169,4 +180,3 @@ function anime() {
 
 
 
-init();
