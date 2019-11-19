@@ -1,22 +1,24 @@
 var map = [
     [1,1,0,1,1,1,1,1,1,1], // 0 signifie case ou on peut se deplacer et 1 case "interdite"
-    [1,0,1,1,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,1],
+    [1,0,0,1,1,1,1,0,0,1],
+    [1,1,0,0,1,0,0,0,1,1],
+    [1,1,1,0,0,0,0,1,1,1],
+    [1,1,1,1,1,0,0,1,1,1],
+    [1,1,1,1,0,0,1,1,1,1],
+    [1,1,1,1,0,0,0,1,1,1],
+    [1,1,1,1,0,0,0,1,1,1],
+    [1,1,1,1,0,0,1,1,1,1],
     [1,1,1,1,2,1,1,1,1,1]
 ]
 
-class Tank{
+var victoire = false;
+
+class Carre{
     constructor(ctx, keys) {
         this.ctx = ctx;
         this.keys = keys;
-        this.x = 4*80;
-        this.y = 9*80;
+        this.x = 0*80;
+        this.y = 2*80;
     }
 
     move() {
@@ -31,71 +33,67 @@ class Tank{
         var d = map[soonD][this.y/80];
 
 
-        if (this.keys.left && this.x >0 && (q == 0 || q==2)) {
+        if (this.keys.left && this.x >0 && (q == 0 || q == 2)) {
             this.x -= 800/10;
             this.keys.left = false;
-
-        } else if (this.keys.right && this.x <720 && (d == 0 ||d == 2) ) {
+        } else if (this.keys.right && this.x <720 && (d == 0 || d == 2)) {
             this.x += 800/10;
             this.keys.right = false;
         }
-
-        if (this.keys.up && this.y >0 && (z == 0 || z ==2) ) {
+        if (this.keys.up && this.y >0 && (z == 0 || z == 2)) {
             this.y -= 800/10;
             this.keys.up = false;
-        } else if (this.keys.down && this.y <720 && (s == 0 || s ==2 )) {
+        } else if (this.keys.down && this.y <720 && (s == 0 || s == 2)) {
             this.y += 800/10;
             this.keys.down = false;
         }
 
-        if (q==2 || d ==2 || z ==2 || s==2) { // a revoir !!!
-            console.log("victoire"); // on teste en affichant "victoire" sur la console mais il y a un problème c'est qu'il affiche victoire une case avant la case finale.
-        } else {
-            var ve;
+        // Condition de victoire
+        if (map[this.x/80][this.y/80] == 2){
+            victoire = true;
         }
 
 
     }
 
     draw() {
-        //PERSO
+
         this.ctx.save();
-        //this.ctx.translate(this.x, this.y);
-
-
         // CORPS DU PERSO
-        this.ctx.fillStyle = 'lightgrey';
+        this.ctx.fillStyle = 'red';
         this.ctx.fillRect(this.x, this.y, 80, 80);
-
         this.ctx.restore();
     }
 }
+
+
 function dessinerMap(){
     //DESSINE LA MAP
+    var images = map;
+    console.log("hihi");
     for(var i=0;i<10;i++){
         for(var j=0;j<10;j++){
+            var monImage = new Image();
 
             if (map[j][i] == 0){
-                this.ctx.fillStyle = 'blue';
-                this.ctx.fillRect(j*80, i*80, 80+j*80, 80+i*80);
+                monImage.src ="0.png";
+                images.push(monImage);
+                this.ctx.drawImage(monImage, j*80, i*80);
             }
-            else if(map[j][i] == 1){
-                this.ctx.fillStyle = 'black';
-                this.ctx.fillRect(j*80, i*80, 80+j*80, 80+i*80);
-            }
-            else if(map[j][i] == 2){
-                this.ctx.fillStyle = 'yellow';
-                this.ctx.fillRect(j*80, i*80, 80+j*80, 80+i*80);
+            else {
+                monImage.src ="1.png";
+                images.push(monImage);
 
+                this.ctx.drawImage(monImage, j*80,i*80);
             }
         }
     }
 }
 
-
 function init() {
     canvas = document.querySelector('#canvas');
     this.ctx = canvas.getContext('2d');
+
 
     this.keys = {
         down: false,
@@ -105,69 +103,68 @@ function init() {
     };
     this.bindKeyboard();
 
-    this.tank = new Tank(this.ctx, this.keys);
+    this.carre = new Carre(this.ctx, this.keys);
 
     requestAnimationFrame(anime);
-
 }
 
 
 function bindKeyboard() {
     window.addEventListener('keydown', e => {
         switch (e.key) {
-    case 'ArrowDown': {
-            this.keys.down = true;
-            break;
+            case 'ArrowDown': {
+                this.keys.down = true;
+                break;
+            }
+            case 'ArrowUp': {
+                this.keys.up = true;
+                break;
+            }
+            case 'ArrowLeft': {
+                this.keys.left = true;
+                break;
+            }
+            case 'ArrowRight': {
+                this.keys.right = true;
+                break;
+            }
         }
-    case 'ArrowUp': {
-            this.keys.up = true;
-            break;
-        }
-    case 'ArrowLeft': {
-            this.keys.left = true;
-            break;
-        }
-    case 'ArrowRight': {
-            this.keys.right = true;
-            break;
-        }
-    }
 
-}, true);
+    }, true);
 
     window.addEventListener('keyup', e => {
         switch (e.key) {
-    case 'ArrowDown': {
-            this.keys.down = false;
-            break;
+            case 'ArrowDown': {
+                this.keys.down = false;
+                break;
+            }
+            case 'ArrowUp': {
+                this.keys.up = false;
+                break;
+            }
+            case 'ArrowLeft': {
+                this.keys.left = false;
+                break;
+            }
+            case 'ArrowRight': {
+                this.keys.right = false;
+                break;
+            }
         }
-    case 'ArrowUp': {
-            this.keys.up = false;
-            break;
-        }
-    case 'ArrowLeft': {
-            this.keys.left = false;
-            break;
-        }
-    case 'ArrowRight': {
-            this.keys.right = false;
-            break;
-        }
-    }
 
-});
+    });
 }
 
 
 function anime() {
 
     this.dessinerMap();
-    this.tank.move();
-    this.tank.draw();
+    this.carre.move();
+    this.carre.draw();
+    if(victoire == false){
+        requestAnimationFrame(anime);
+    }
 
-
-
-    requestAnimationFrame(anime);
 }
 
 
