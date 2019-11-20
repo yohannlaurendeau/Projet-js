@@ -84,12 +84,12 @@ function dessinerMap(){
             var monImage = new Image();
 
             if (map[j][i] == 0){
-                monImage.src ="./MEDIA/0.png";
+                monImage.src ="./../MEDIA/0.png";
                 images.push(monImage);
                 this.ctx.drawImage(monImage, j*80, i*80);
             }
             else {
-                monImage.src ="./MEDIA/1.png";
+                monImage.src ="./../MEDIA/1.png";
                 images.push(monImage);
 
                 this.ctx.drawImage(monImage, j*80,i*80);
