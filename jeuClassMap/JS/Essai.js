@@ -28,7 +28,7 @@ class GameMap{
                 if (this.map2[i][j] == 1) {
                     monImage.src ="./../../MEDIA/1.png";
                     images.push(monImage);
-                    this.ctx.drawImage(monImage, j*80,i*80);
+                    this.ctx.drawImage(monImage , j*80,i*80);
                 }
                 if (this.map2[i][j] == 2) {
                     monImage.src ="./../../MEDIA/porte.png"; ////////////////////////////////////////////////////////////
