@@ -1,6 +1,8 @@
 var title = document.getElementById('title');
 var buttons = document.getElementsByClassName('buttons');
 var soundBtn = document.getElementById('soundBtn');
+var afficheScore = document.getElementById("score");
+
 
 var sound = new Audio();
 sound.src = "../MEDIA/pop.wav";
@@ -21,17 +23,17 @@ class GameMap{
                 var monImage = new Image();
                 
                 if (this.map2[i][j] == 0){
-                    monImage.src ="./../../MEDIA/0.png";
+                    monImage.src ="./../MEDIA/0.png";
                     images.push(monImage);
                     this.ctx.drawImage(monImage, j*80, i*80);
                 }
                 if (this.map2[i][j] == 1) {
-                    monImage.src ="./../../MEDIA/1.png";
+                    monImage.src ="./../MEDIA/1.png";
                     images.push(monImage);
-                    this.ctx.drawImage(monImage , j*80,i*80);
+                    this.ctx.drawImage(monImage, j*80,i*80);
                 }
                 if (this.map2[i][j] == 2) {
-                    monImage.src ="./../../MEDIA/porte.png"; ////////////////////////////////////////////////////////////
+                    monImage.src ="./../MEDIA/porte.png"; ////////////////////////////////////////////////////////////
                     images.push(monImage);
                     this.ctx.drawImage(monImage, j*80,i*80);
                 }
@@ -64,10 +66,14 @@ class GameMap{
                 [1,2,1,1,1,1,0,0,1,1],
                 [1,0,1,1,1,1,1,1,1,1],
                 [1,0,1,1,1,1,1,1,1,1],
-                [1,1,1,1,0,0,0,1,1,1]
+                [1,0,1,1,0,0,0,1,1,1]
            ]
         }else{
-            console.log("victoire");
+            if (confirm("Vous avez fini le jeu !\nVoulez-vous recommencer le jeu ?")) {            	
+   				init();
+  			} else {
+    			document.location.reload(true);
+  			}
         }
         
     }
@@ -122,6 +128,8 @@ class Carre{
         // Condition de victoire
         if (this.map.getMap()[this.y/80][this.x/80] == 2){
            nextLevel = nextLevel + 1;
+           level = level + 1;
+           afficheScore.innerHTML = "Level : "+level+"";
            this.map.addMapLevel(nextLevel);
         }
 
@@ -146,7 +154,9 @@ function init() {
     buttons[0].style.visibility = 'hidden';
     canvas = document.querySelector('#canvas');
     this.ctx = canvas.getContext('2d');
-
+    nextLevel = 1;
+    level = 1;
+    afficheScore.innerHTML = "Level : "+level+"";
 
     this.keys = {
         down: false,
