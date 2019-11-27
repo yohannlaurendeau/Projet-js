@@ -1,10 +1,3 @@
-var title = document.getElementById('title');
-var buttons = document.getElementsByClassName('buttons');
-var soundBtn = document.getElementById('soundBtn');
-
-var sound = new Audio();
-sound.src = "https://felgo.com/web-assets/pop.wav";
-
 var map = [
     [1,1,0,1,1,1,1,1,1,1], // 0 signifie case ou on peut se deplacer et 1 case "interdite"
     [1,0,0,1,1,1,1,0,0,1],
@@ -20,9 +13,15 @@ var map = [
 
 var victoire = false;
 
+var sprites = new Image();
+sprites.onload = anime;
+sprites.src = "./../MEDIA/PERSO.png"
+
+
 class Carre{
-    constructor(ctx,keys) {
+    constructor(ctx,ctx2,keys) {
         this.ctx = ctx;
+        this.ctx2 = ctx2;
         this.keys = keys;
         this.x = 0*80;
         this.y = 2*80;
@@ -68,8 +67,13 @@ class Carre{
 
         this.ctx.save();
         // CORPS DU PERSO
-        this.ctx.fillStyle = 'red';
-        this.ctx.fillRect(this.x, this.y, 80, 80);
+
+        spritesheet = new Image();
+        spritesheet.src = "./../MEDIA/PERSO.png";
+        
+     
+    };
+        
         this.ctx.restore();
     }
 }
@@ -104,7 +108,8 @@ function init() {
     buttons[0].style.visibility = 'hidden';
     canvas = document.querySelector('#canvas');
     this.ctx = canvas.getContext('2d');
-
+    canvasSpriteSheeet = document.querySelector("#spritesheet");
+    this.ctx2 = canvasSpriteSheeet.getContext('2d');
 
     this.keys = {
         down: false,

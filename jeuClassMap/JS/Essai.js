@@ -9,6 +9,7 @@ sound.src = "../MEDIA/pop.wav";
 
 var nextLevel = 1;
 
+
 class GameMap{
     constructor(ctx, map) {
         this.ctx = ctx;
@@ -21,22 +22,9 @@ class GameMap{
         for(var i=0;i<10;i++){
             for(var j=0;j<10;j++){
                 var monImage = new Image();
-                
-                if (this.map2[i][j] == 0){
-                    monImage.src ="./../MEDIA/0.png";
-                    images.push(monImage);
-                    this.ctx.drawImage(monImage, j*80, i*80);
-                }
-                if (this.map2[i][j] == 1) {
-                    monImage.src ="./../MEDIA/1.png";
-                    images.push(monImage);
-                    this.ctx.drawImage(monImage, j*80,i*80);
-                }
-                if (this.map2[i][j] == 2) {
-                    monImage.src ="./../MEDIA/porte.png"; ////////////////////////////////////////////////////////////
-                    images.push(monImage);
-                    this.ctx.drawImage(monImage, j*80,i*80);
-                }
+                monImage.src ="./../MEDIA/"+this.map2[i][j]+".png";
+                images.push(monImage);
+                this.ctx.drawImage(monImage, j*80,i*80);
             }
         }
     }
@@ -88,6 +76,8 @@ class GameMap{
 
 var victoire = false;
 
+
+var memoireImage = "s";
 class Carre{
     constructor(ctx,keys,map) {
         this.ctx = ctx;
@@ -112,16 +102,20 @@ class Carre{
 
         if (this.keys.left && this.x >0 && (q == 0 || q == 2)) {
             this.x -= 800/10;
+            memoireImage = "q";
             this.keys.left = false;
         } else if (this.keys.right && this.x <720 && (d == 0 || d == 2)) {
             this.x += 800/10;
+            memoireImage = "d";
             this.keys.right = false;
         }
         if (this.keys.up && this.y >0 && (z == 0 || z == 2)) {
             this.y -= 800/10;
+            memoireImage = "z";
             this.keys.up = false;
         } else if (this.keys.down && this.y <720 && (s == 0 || s == 2)) {
             this.y += 800/10;
+            memoireImage = "s";
             this.keys.down = false;
         }
 
@@ -136,12 +130,13 @@ class Carre{
 
     }
 
+
     draw() {
 
         this.ctx.save();
-        // CORPS DU PERSO
-        this.ctx.fillStyle = 'red';
-        this.ctx.fillRect(this.x, this.y, 80, 80);
+        var character = new Image();
+        character.src ="./../MEDIA/Luffy_"+memoireImage+".png";
+        ctx.drawImage(character,this.x,this.y);
         this.ctx.restore();
     }
 }
