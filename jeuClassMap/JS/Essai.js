@@ -9,6 +9,22 @@ sound.src = "../MEDIA/pop.wav";
 
 var nextLevel = 1;
 
+var x = 50;
+var y = 100;
+var srcX;
+var srcY;
+var sheetWidth = 200;
+var sheetHeight = 160;
+
+var cols = 5;
+var rows = 4;
+
+var width = sheetWidth / cols;
+var height = sheetHeight / rows;
+
+var currentFrame = 0;
+var currentFrame_line = 0;
+
 
 class GameMap{
     constructor(ctx, map) {
@@ -22,9 +38,25 @@ class GameMap{
         for(var i=0;i<10;i++){
             for(var j=0;j<10;j++){
                 var monImage = new Image();
-                monImage.src ="./../MEDIA/"+this.map2[i][j]+".png";
-                images.push(monImage);
-                this.ctx.drawImage(monImage, j*80,i*80);
+                 if (this.map2[i][j] == 0){
+                    monImage.src ="./../../MEDIA/0.png";
+                    monImage.src ="./../MEDIA/0.png";
+                    images.push(monImage);
+                    this.ctx.drawImage(monImage, j*80, i*80);
+                }
+                if (this.map2[i][j] == 1) {
+                    monImage.src ="./../../MEDIA/1.png";
+                    monImage.src ="./../MEDIA/1.png";
+                    images.push(monImage);
+                    //this.ctx.drawImage(monImage , j*80,i*80);
+                    this.ctx.drawImage(monImage, j*80,i*80);
+                }
+                if (this.map2[i][j] == 2) {
+                    monImage.src ="./../../MEDIA/porte.png"; ////////////////////////////////////////////////////////////
+                    monImage.src ="./../MEDIA/porte.png"; ////////////////////////////////////////////////////////////
+                    images.push(monImage);
+                    this.ctx.drawImage(monImage, j*80,i*80);
+                }
             }
         }
     }
@@ -77,68 +109,27 @@ class GameMap{
 var victoire = false;
 
 
-var memoireImage = "s";
+//var memoireImage = "s";
 class Carre{
     constructor(ctx,keys,map) {
         this.ctx = ctx;
         this.keys = keys;
         this.map = map;
-        this.x = 0*80;
-        this.y = 2*80;
+        console.log(this.map);
+        this.x = x;
+        this.y = y;
     }
-
-    move() {
-        var soonZ = this.y/80-1 == -1 ? 1 : this.y/80-1;
-        var soonS = this.y/80+1 == 10 ? 1 : this.y/80+1;
-        var soonQ = this.x/80-1 == -1 ? 1 : this.x/80-1;
-        var soonD = this.x/80+1 == 10 ? 1 : this.x/80+1;
-
-        
-        var z = this.map.getMap()[soonZ][this.x/80];
-        var s = this.map.getMap()[soonS][this.x/80];
-        var q = this.map.getMap()[this.y/80][soonQ];
-        var d = this.map.getMap()[this.y/80][soonD];
-
-
-        if (this.keys.left && this.x >0 && (q == 0 || q == 2)) {
-            this.x -= 800/10;
-            memoireImage = "q";
-            this.keys.left = false;
-        } else if (this.keys.right && this.x <720 && (d == 0 || d == 2)) {
-            this.x += 800/10;
-            memoireImage = "d";
-            this.keys.right = false;
-        }
-        if (this.keys.up && this.y >0 && (z == 0 || z == 2)) {
-            this.y -= 800/10;
-            memoireImage = "z";
-            this.keys.up = false;
-        } else if (this.keys.down && this.y <720 && (s == 0 || s == 2)) {
-            this.y += 800/10;
-            memoireImage = "s";
-            this.keys.down = false;
-        }
-
-        // Condition de victoire
-        if (this.map.getMap()[this.y/80][this.x/80] == 2){
-           nextLevel = nextLevel + 1;
-           level = level + 1;
-           afficheScore.innerHTML = "Level : "+level+"";
-           this.map.addMapLevel(nextLevel);
-        }
-
-
-    }
-
 
     draw() {
 
         this.ctx.save();
         var character = new Image();
-        character.src ="./../MEDIA/Luffy_"+memoireImage+".png";
-        ctx.drawImage(character,this.x,this.y);
+        character.src = "../MEDIA/Luffy_perso.png";
+        updateFrame();
+        ctx.drawImage(character, srcX, srcY, width, height, this.x, this.y, width, height);
         this.ctx.restore();
     }
+
 }
 
 
@@ -153,88 +144,121 @@ function init() {
     level = 1;
     afficheScore.innerHTML = "Level : "+level+"";
 
-    this.keys = {
-        down: false,
-        up: false,
-        left: false,
-        right: false
-    };
-    this.bindKeyboard();
-
+    
     var mapJeu = [
-            [1,1,1,1,1,1,1,1,1,1],
-            [1,0,1,1,1,1,1,1,1,1],
-            [0,0,0,1,1,1,1,1,1,1],
-            [1,1,0,0,1,1,1,1,1,1],
-            [1,1,1,0,1,0,0,0,0,2],
-            [1,1,0,0,0,0,0,0,0,1],
-            [1,1,0,0,0,1,0,0,1,1],
-            [1,0,0,1,1,1,1,1,1,1],
-            [1,0,1,1,1,1,1,1,1,1],
-            [1,1,1,1,1,1,1,1,1,1]
+            [0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0],
+            [0,0,1,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,2],
+            [0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0]
     ]
 
+    //this.carre = new Carre(this.ctx, this.keys);
+    this.carre = new Carre(this.ctx, this.keys, mapJeu);
     this.map = new GameMap(this.ctx, mapJeu);
 
-    this.carre = new Carre(this.ctx, this.keys, this.map);
-
+    /*setInterval(function() {
+        this.carre.draw();
+    }, 30);*/
     
+
+        
     requestAnimationFrame(anime);
 }
 
 
-function bindKeyboard() {
-    window.addEventListener('keydown', e => {
-        switch (e.key) {
-            case 'ArrowDown': {
-                this.keys.down = true;
-                break;
-            }
-            case 'ArrowUp': {
-                this.keys.up = true;
-                break;
-            }
-            case 'ArrowLeft': {
-                this.keys.left = true;
-                break;
-            }
-            case 'ArrowRight': {
-                this.keys.right = true;
-                break;
-            }
-        }
+function updateFrame() {
+  //console.log("currentFrame ="+currentFrame);
+  //console.log(currentFrame);
+  srcX = currentFrame * width;
+  srcY = currentFrame_line * height ;
 
-    }, true);
-
-    window.addEventListener('keyup', e => {
-        switch (e.key) {
-            case 'ArrowDown': {
-                this.keys.down = false;
-                break;
-            }
-            case 'ArrowUp': {
-                this.keys.up = false;
-                break;
-            }
-            case 'ArrowLeft': {
-                this.keys.left = false;
-                break;
-            }
-            case 'ArrowRight': {
-                this.keys.right = false;
-                break;
-            }
-        }
-
-    });
 }
 
+window.onkeydown = function(e) {
+  var key = e.keyCode || e.which;
+  switch (key) {
+    case 37:
+      currentFrame = ++currentFrame % cols;
+      currentFrame_line = 1 % rows;
+      if(this.carre.x>0){ 
+          this.carre.x = this.carre.x-5;
+          ctx.clearRect(this.carre.x+5, this.carre.y, width, height);
+      }else{
+          console.log("touché mur gauche !");
+          ctx.clearRect(this.carre.x+5, this.carre.y, width, height);
+      }
+      //-Move left
+      break;
+    case 39:
+      currentFrame = ++currentFrame % cols;
+      currentFrame_line = 2 % rows;
 
-function anime() {
+      if(this.carre.x<canvas.width-width){
+        this.carre.x = this.carre.x+5;
+        ctx.clearRect(this.carre.x-5, this.carre.y, width, height);
+      }else{
+          //console.log("touché mur droit !");
+          ctx.clearRect(this.carre.x-5, this.carre.y, width, height);
+      }      
+      //-Move right
+      break;
+    case 38:
+      currentFrame = ++currentFrame % cols;
+      currentFrame_line = 3 % rows;
+      if(this.carre.y>0) {
+        this.carre.y = this.carre.y-5;
+        ctx.clearRect(this.carre.x, this.carre.y+5, width, height);
+      }else{
+          console.log("touché mur haut !");
+          ctx.clearRect(this.carre.x, this.carre.y+5, width, height);
+      }
+      //-Move up
+      break;
+    case 40:
+      currentFrame = ++currentFrame % cols;
+      currentFrame_line = 0 % rows;
+      if(this.carre.y<canvas.height-height) {
+        this.carre.y = this.carre.y+5;
+        ctx.clearRect(this.carre.x, this.carre.y-5, width, height);
+      }else{
+          //console.log("touché mur bas !");
+          ctx.clearRect(this.carre.x, this.carre.y+5, width, height);
+      }
+      //-Move down
+      break;
+    default:
+      break;
+  }
+};
 
+/*
+function possible() {
+   for(var i=0;i<10;i++){
+            for(var j=0;j<10;j++){
+               if(this.map.getMap()[i][j] == 1){
+                  if(this.carre.x == i*80){
+                    console.log(this.carre.x);
+                  }
+                  if(this.carre.y == j*80){
+                    console.log(this.carre.y);
+                  }
+               }
+            }
+   }
+}
+*/
+
+
+function anime() {    
     this.map.dessinerMap();
-    this.carre.move();
     this.carre.draw();
+    //possible();
     if(victoire == false){
         requestAnimationFrame(anime);
     }
