@@ -9,7 +9,15 @@ sound.src = "../MEDIA/pop.wav";
 
 var nextLevel = 1;
 var score = 0 ;
-var piege = 0 ;
+
+var allowToMove = true;
+//Sprite du perso
+var sprite = 0;
+//Compteur pour sprite TODO: A changer
+var sCompteur =0;
+var nextCaseX = 0;
+var nextCaseY = 160;
+
 class GameMap{
     constructor(ctx, map) {
         this.ctx = ctx;
@@ -92,57 +100,97 @@ class Perso{
     }
 
     move() {
-        var soonZ = this.y/80-1 == -1 ? 1 : this.y/80-1;
-        var soonS = this.y/80+1 == 10 ? 1 : this.y/80+1;
-        var soonQ = this.x/80-1 == -1 ? 1 : this.x/80-1;
-        var soonD = this.x/80+1 == 10 ? 1 : this.x/80+1;
+        if(allowToMove) {
+            sprite = 0;
+            var soonZ = this.y/80-1 == -1 ? 1 : this.y/80-1;
+            var soonS = this.y/80+1 == 10 ? 1 : this.y/80+1;
+            var soonQ = this.x/80-1 == -1 ? 1 : this.x/80-1;
+            var soonD = this.x/80+1 == 10 ? 1 : this.x/80+1;
 
-        
-        var z = this.map.getMap()[soonZ][this.x/80];
-        var s = this.map.getMap()[soonS][this.x/80];
-        var q = this.map.getMap()[this.y/80][soonQ];
-        var d = this.map.getMap()[this.y/80][soonD];
+            var z = this.map.getMap()[soonZ][this.x/80];
+            var s = this.map.getMap()[soonS][this.x/80];
+            var q = this.map.getMap()[this.y/80][soonQ];
+            var d = this.map.getMap()[this.y/80][soonD];
 
+            if (this.keys.left && this.x > 0 && (q == 0 || q == 2 || q == 3 || q == 4)) {
+                allowToMove= false;
+                nextCaseX -= 800 / 10;
+                nextCaseY = this.y;
+                memoireImage = "q";
 
-        if (this.keys.left && this.x >0 && (q == 0 || q == 2 || q == 3 || q == 4)) {
-            this.x -= 800/10;
-            memoireImage = "q";
-            this.keys.left = false;
-        } else if (this.keys.right && this.x <720 && (d == 0 || d == 2 || d == 3 || d == 4)) {
-            this.x += 800/10;
-            memoireImage = "d";
-            this.keys.right = false;
+            } else if (this.keys.right && this.x < 720 && (d == 0 || d == 2 || d == 3 || d == 4)) {
+                allowToMove= false;
+                nextCaseX += 800 / 10;
+                nextCaseY = this.y;
+                memoireImage = "d";
+            }
+            if (this.keys.up && this.y > 0 && (z == 0 || z == 2 || z == 3 || z == 4)) {
+                allowToMove= false;
+                nextCaseY -= 800 / 10;
+                nextCaseX = this.x;
+                memoireImage = "z";
+
+            } else if (this.keys.down && this.y < 720 && (s == 0 || s == 2 || s == 3 || s == 4)) {
+                allowToMove= false;
+                nextCaseY += 800 / 10;
+                nextCaseX = this.x;
+                memoireImage = "s";
+
+            }
+            if (this.map.getMap()[this.y/80][this.x/80] == 2){
+                nextLevel = nextLevel + 1;
+                level = level + 1;
+                afficheLevel.innerHTML = "Level : "+level+"";
+                this.map.addMapLevel(nextLevel);
+            }
+            if(this.map.getMap()[this.y/80][this.x/80] == 3){
+                this.map.getMap()[this.y/80][this.x/80] = 0;
+                score = score + 40;
+                afficheScore.innerHTML = "Score : "+score+"";
+
+            }
+            if(this.map.getMap()[this.y/80][this.x/80] == 4){
+                this.map.getMap()[this.y/80][this.x/80] = 0;
+                score = score - 40;
+                afficheScore.innerHTML = "Score : "+score+"";
+
+            }
         }
-        if (this.keys.up && this.y >0 && (z == 0 || z == 2 || z == 3 || z == 4)) {
-            this.y -= 800/10;
-            memoireImage = "z";
-            this.keys.up = false;
-        } else if (this.keys.down && this.y <720 && (s == 0 || s == 2 || s == 3 || s == 4)) {
-            this.y += 800/10;
-            memoireImage = "s";
-            this.keys.down = false;
+        else {
+            sCompteur++;
+            if(sCompteur%5 == 0) {
+                if(sprite+1 > 4) {
+                    sprite =0;
+                }
+                else {
+                    sprite++;
+                }
+
+            }
+
+
+            if (memoireImage == "q") {
+                this.x -= 2;
+
+            } else if (memoireImage== "d") {
+                this.x +=2;
+            }
+
+            if (memoireImage == "z") {
+                this.y -=2;
+
+            } else if (memoireImage == "s") {
+                this.y +=2;
+            }
+            if(this.x == nextCaseX && this.y == nextCaseY){
+                allowToMove = true;
+            }
+
         }
         //Tentative de piege ou piece
        
         // Condition de victoire
-        if (this.map.getMap()[this.y/80][this.x/80] == 2){
-           nextLevel = nextLevel + 1;
-           level = level + 1;
-           afficheLevel.innerHTML = "Level : "+level+"";
-           this.map.addMapLevel(nextLevel);
-        }
-        if(this.map.getMap()[this.y/80][this.x/80] == 3){
-            this.map.getMap()[this.y/80][this.x/80] = 0;
-	       score = score + 40;
-	       afficheScore.innerHTML = "Score : "+score+"";
 
-        	}
-        if(this.map.getMap()[this.y/80][this.x/80] == 4){
-            this.map.getMap()[this.y/80][this.x/80] = 0;
-            score = score - 40;
-            afficheScore.innerHTML = "Score : "+score+"";
-
-        }
 
         }
 
@@ -154,7 +202,7 @@ class Perso{
 
         this.ctx.save();
         var character = new Image();
-        character.src ="./../MEDIA/Luffy_"+memoireImage+".png";
+        character.src ="./../MEDIA/Luffy_"+memoireImage+sprite+".png";
 
         //character.style.filter = "brightness(50%)";
         ctx.drawImage(character,this.x,this.y);
