@@ -5,7 +5,7 @@
 
 /* Ecran accueil */
 
-p{
+#title{
   position: absolute;
   top: 50px;
   left: 260px;
@@ -50,4 +50,20 @@ p{
   height: 40px;
 }
 
+/* SCORE */
+
+#score{
+  position: absolute;
+  display: inline;
+  left:850px;
+  font-size: 40px;
+}
+
+#level {
+  position: absolute;
+  display: inline;
+  left:850px;
+  font-size: 20px;
+
+}
 
