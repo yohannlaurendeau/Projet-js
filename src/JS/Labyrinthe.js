@@ -14,7 +14,7 @@ var allowToMove = true;
 //Sprite du perso
 var sprite = 0;
 //Compteur pour sprite TODO: A changer
-var sCompteur =0;
+var sCompteur = 0;
 var nextCaseX = 0;
 var nextCaseY = 160;
 
@@ -48,7 +48,7 @@ class GameMap{
                 [0,0,0,1,0,1,1,1,1,1],
                 [1,1,0,0,0,1,1,1,1,1],
                 [1,1,1,0,0,0,0,0,0,0],
-                [1,1,0,0,0,0,0,0,0,1],
+                [1,1,0,0,4,0,3,0,0,1],
                 [1,1,0,0,0,1,0,0,1,1],
                 [1,0,0,1,1,1,1,1,1,1],
                 [1,0,1,1,1,1,1,1,1,1],
@@ -68,10 +68,11 @@ class GameMap{
                 [1,0,1,1,0,0,0,1,1,1]
            ]
         }else{
-            if (confirm("Vous avez fini le jeu !\nVoulez-vous recommencer le jeu ?")) {            	
-   				init();
-  			} else {
-    			document.location.reload(true);
+            var endGame = prompt("Vous avez fini le jeu !\nVeuillez entrer votre nom ?");
+            if (endGame) {   
+                var arrayScore = [];
+                arrayScore.push(endGame);         	
+   				document.location.reload(true);
   			}
         }
         
@@ -147,20 +148,39 @@ class Perso{
                 this.map.getMap()[this.y/80][this.x/80] = 0;
                 score = score + 40;
                 afficheScore.innerHTML = "Score : "+score+"";
+                switch (nextLevel) {
+                    case 1: {
+                        this.map.getMap()[4][8] = 0;
+                        break;
+                    }
+                    case 2: {
+                        this.map.getMap()[8][1] = 0;
+                        break;
+                    }
+                }
 
             }
             if(this.map.getMap()[this.y/80][this.x/80] == 4){
                 this.map.getMap()[this.y/80][this.x/80] = 0;
                 score = score - 40;
                 afficheScore.innerHTML = "Score : "+score+"";
-
+                switch (nextLevel) {
+                    case 1: {
+                        this.map.getMap()[4][8] = 1;
+                        break;
+                    }
+                    case 2: {
+                        this.map.getMap()[8][1] = 1;
+                        break;
+                    }
+                }  
             }
         }
         else {
             sCompteur++;
             if(sCompteur%5 == 0) {
                 if(sprite+1 > 4) {
-                    sprite =0;
+                    sprite = 0;
                 }
                 else {
                     sprite++;
@@ -212,7 +232,9 @@ class Perso{
 }
 
 
-	
+function highScore(){
+    //Mettre ici l'affichage de mon array
+}	
 
 
 
