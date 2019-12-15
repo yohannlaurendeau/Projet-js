@@ -14,9 +14,12 @@ var allowToMove = true;
 //Sprite du perso
 var sprite = 0;
 //Compteur pour sprite TODO: A changer
-var sCompteur = 0;
-var nextCaseX = 0;
-var nextCaseY = 160;
+var sCompteur =0;
+var nextCaseX = 0*80;
+var nextCaseY = 2*80;
+
+var characterSprites = [];
+let currentIndexImage = 0;
 
 class GameMap{
     constructor(ctx, map) {
@@ -33,7 +36,7 @@ class GameMap{
                 monImage.src ="./../MEDIA/"+this.map2[i][j]+".png";
                 images.push(monImage);
                 this.ctx.drawImage(monImage, j*80,i*80);
-               	
+
             }
         }
     }
@@ -42,18 +45,18 @@ class GameMap{
 
     addMapLevel(level){
         if(level == 2){
-           this.map2 = [
+            this.map2 = [
                 [0,1,1,1,0,1,1,1,1,1],
                 [0,0,1,1,0,1,1,1,1,1],
                 [0,0,0,1,0,1,1,1,1,1],
                 [1,1,0,0,0,1,1,1,1,1],
                 [1,1,1,0,0,0,0,0,0,0],
-                [1,1,0,0,4,0,3,0,0,1],
+                [1,1,0,0,0,0,0,0,0,1],
                 [1,1,0,0,0,1,0,0,1,1],
                 [1,0,0,1,1,1,1,1,1,1],
                 [1,0,1,1,1,1,1,1,1,1],
                 [1,2,1,1,0,0,0,1,1,1]
-           ]
+            ]
         }else if(level == 3){
             this.map2 = [
                 [0,1,1,1,0,1,1,1,1,1],
@@ -66,16 +69,15 @@ class GameMap{
                 [1,0,1,1,1,1,1,1,1,1],
                 [1,0,1,1,1,1,1,1,1,1],
                 [1,0,1,1,0,0,0,1,1,1]
-           ]
+            ]
         }else{
-            var endGame = prompt("Vous avez fini le jeu !\nVeuillez entrer votre nom ?");
-            if (endGame) {   
-                var arrayScore = [];
-                arrayScore.push(endGame);         	
-   				document.location.reload(true);
-  			}
+            if (confirm("Vous avez fini le jeu !\nVoulez-vous recommencer le jeu ?")) {
+                init();
+            } else {
+                document.location.reload();
+            }
         }
-        
+
     }
 
     getMap() {
@@ -148,42 +150,25 @@ class Perso{
                 this.map.getMap()[this.y/80][this.x/80] = 0;
                 score = score + 40;
                 afficheScore.innerHTML = "Score : "+score+"";
-                switch (nextLevel) {
-                    case 1: {
-                        this.map.getMap()[4][8] = 0;
-                        break;
-                    }
-                    case 2: {
-                        this.map.getMap()[8][1] = 0;
-                        break;
-                    }
-                }
 
             }
             if(this.map.getMap()[this.y/80][this.x/80] == 4){
                 this.map.getMap()[this.y/80][this.x/80] = 0;
                 score = score - 40;
                 afficheScore.innerHTML = "Score : "+score+"";
-                switch (nextLevel) {
-                    case 1: {
-                        this.map.getMap()[4][8] = 1;
-                        break;
-                    }
-                    case 2: {
-                        this.map.getMap()[8][1] = 1;
-                        break;
-                    }
-                }  
+
             }
         }
         else {
-            sCompteur++;
+
+
+            sCompteur ++;
             if(sCompteur%5 == 0) {
                 if(sprite+1 > 4) {
                     sprite = 0;
                 }
                 else {
-                    sprite++;
+                    sprite ++;
                 }
 
             }
@@ -193,14 +178,14 @@ class Perso{
                 this.x -= 2;
 
             } else if (memoireImage== "d") {
-                this.x +=2;
+                this.x += 2;
             }
 
             if (memoireImage == "z") {
-                this.y -=2;
+                this.y -= 2;
 
             } else if (memoireImage == "s") {
-                this.y +=2;
+                this.y += 2;
             }
             if(this.x == nextCaseX && this.y == nextCaseY){
                 allowToMove = true;
@@ -208,37 +193,56 @@ class Perso{
 
         }
         //Tentative de piege ou piece
-       
+
         // Condition de victoire
 
 
-        }
+    }
 
 
-    
 
 
-    draw() {
 
+
+
+    draw(time) {// time base animation dans mooc; calculer un delta
         this.ctx.save();
-        var character = new Image();
-        character.src ="./../MEDIA/Luffy_"+memoireImage+sprite+".png";
+        // on dessine l'image d'index currentIndexImage
+
 
         //character.style.filter = "brightness(50%)";
-        ctx.drawImage(character,this.x,this.y);
+        ctx.drawImage(characterSprites[currentIndexImage],this.x,this.y);//faire pour les directions
+        if(currentIndexImage  == 4) currentIndexImage = 0;
+
         //processLight(this, this.ctx);
         this.ctx.restore();
     }
 }
 
+function chargerImages(callback) {
+    let nbImages =5;
+    let nbImagesChargees = 0;
 
-function highScore(){
-    //Mettre ici l'affichage de mon array
-}	
+    for(var i=0; i <nbImages; i++){
+        (function(j) {
+            var characterImage = new Image();
+            characterImage.src = "./../MEDIA/Luffy_" + memoireImage + j + ".png";
+            characterImage.onload = () => {
+                nbImagesChargees++;
+                console.log("image " + characterImage.src + " chargée dans index " + j);
+                characterSprites[j] = characterImage;
+
+                if (nbImagesChargees == nbImages) callback();
+            }
+        })(i);
+
+    }
+}
 
 
 
-function init() {
+
+function start() {
     title.style.display = 'none';
     soundBtn.style.display = 'none';
     buttons[0].style.visibility = 'hidden';
@@ -260,24 +264,30 @@ function init() {
     this.bindKeyboard();
 
     var mapJeu = [
-            [1,1,1,1,1,1,1,1,1,1],
-            [1,3,1,1,1,1,1,1,1,1],
-            [0,0,0,1,1,1,1,1,1,1],
-            [1,1,0,0,1,1,1,1,1,1],
-            [1,1,1,4,1,0,0,0,0,2],
-            [1,1,0,0,0,0,3,0,4,1],
-            [1,1,3,0,4,1,0,3,1,1],
-            [1,3,0,1,1,1,1,1,1,1],
-            [1,0,1,1,1,1,1,1,1,1],
-            [1,1,1,1,1,1,1,1,1,1]
+        [1,1,1,1,1,1,1,1,1,1],
+        [1,3,1,1,1,1,1,1,1,1],
+        [0,0,0,1,1,1,1,1,1,1],
+        [1,1,0,0,1,1,1,1,1,1],
+        [1,1,1,4,1,0,0,0,0,2],
+        [1,1,0,0,0,0,3,0,4,1],
+        [1,1,3,0,4,1,0,3,1,1],
+        [1,3,0,1,1,1,1,1,1,1],
+        [1,0,1,1,1,1,1,1,1,1],
+        [1,1,1,1,1,1,1,1,1,1]
     ]
 
     this.map = new GameMap(this.ctx, mapJeu);
 
     this.perso = new Perso(this.ctx, this.keys, this.map);
 
-    
+
     requestAnimationFrame(anime);
+}
+
+function init() {
+    // on ne demarre que quand tout est chargé
+    chargerImages(start);
+
 }
 
 
@@ -335,10 +345,10 @@ function bindKeyboard() {
     var revertY = false;
     var revertX = false;
     -2 -1 0 1 2
-    for(let i = -1 * nbCouches; i <= nbCouches; i++) {  
-        revertY = false;        
-        coucheNumberY = nbCouches;              
-        for(let j = -1 * nbCouches; j <= nbCouches; j++){            
+    for(let i = -1 * nbCouches; i <= nbCouches; i++) {
+        revertY = false;
+        coucheNumberY = nbCouches;
+        for(let j = -1 * nbCouches; j <= nbCouches; j++){
             const pixels = context.getImageData(player.x + i * 64, player.y + j * 64, 64, 64);
             var d = pixels.data;
             for (var p = 0; p < d.length; p+=4) {
@@ -348,19 +358,19 @@ function bindKeyboard() {
                     d[p+1] += newValue;
                     d[p+2] += newValue;
                 }
-                                       
-            }    
-            context.putImageData(pixels, player.x + i * 64, player.y + j * 64);            
-            
+
+            }
+            context.putImageData(pixels, player.x + i * 64, player.y + j * 64);
+
             if(coucheNumberY == 0) {
                 revertY = true;
-            }            
-            
+            }
+
             if(revertY) {
                 coucheNumberY++;
             }else {
                 coucheNumberY--;
-            }                                       
+            }
         }
 
         if(coucheNumberX == 0) {
@@ -371,13 +381,13 @@ function bindKeyboard() {
             coucheNumberX++;
         }else {
             coucheNumberX--;
-        } 
+        }
     }
 }*/
 
 
 
-function anime() {		
+function anime() {
     this.map.dessinerMap();
     this.perso.move();
     this.perso.draw();
@@ -386,6 +396,8 @@ function anime() {
     }
 
 }
+
+
 
 
 
