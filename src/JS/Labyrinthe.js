@@ -50,30 +50,30 @@ class GameMap{
     addMapLevel(level){
         if(level == 2){
            this.map2 = [
-                [0,1,1,1,0,1,1,1,1,1],
-                [0,0,1,1,0,1,1,1,1,1],
-                [0,0,0,1,0,1,1,1,1,1],
-                [1,1,0,0,0,1,1,1,1,1],
-                [1,1,1,0,0,2,0,0,0,0],
-                [1,1,0,0,4,0,3,0,0,1],
-                [1,1,0,0,0,1,0,0,1,1],
-                [1,0,0,1,1,1,1,1,1,1],
-                [1,0,1,1,1,1,1,1,1,1],
-                [1,0,1,1,0,0,0,1,1,1]
+               [0, 1, 1, 1, 0, 1, 1, 1, 1, 1],
+               [0, 0, 1, 1, 0, 1, 1, 1, 1, 1],
+               [0, 0, 0, 1, 0, 1, 1, 1, 1, 1],
+               [1, 1, 0, 0, 0, 1, 1, 1, 1, 1],
+               [1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+               [1, 1, 0, 0, 0, 0, 0, 0, 0, 1],
+               [1, 1, 0, 0, 0, 1, 0, 0, 1, 1],
+               [1, 0, 0, 1, 1, 1, 1, 1, 1, 1],
+               [1, 0, 1, 1, 1, 1, 1, 1, 1, 1],
+               [1, 2, 1, 1, 0, 0, 0, 1, 1, 1]
            ]
         }else if(level == 3){
             console.log("array avant fin : " + arrayScore);
             this.map2 = [
-                [0,1,1,1,0,1,1,1,1,1],
-                [0,0,1,1,0,1,1,1,1,1],
-                [0,0,0,1,0,1,1,1,1,1],
-                [1,1,0,0,0,1,1,1,1,1],
-                [1,1,1,1,1,0,0,0,0,0],
-                [1,1,1,1,1,0,2,0,0,1],
-                [1,2,1,1,1,1,0,0,1,1],
-                [1,0,1,1,1,1,1,1,1,1],
-                [1,0,1,1,1,1,1,1,1,1],
-                [1,0,1,1,0,0,0,1,1,1]
+                [0, 1, 1, 1, 0, 1, 1, 1, 1, 1],
+                [0, 0, 1, 1, 0, 1, 1, 1, 1, 1],
+                [0, 0, 0, 1, 0, 1, 1, 1, 1, 1],
+                [1, 1, 0, 0, 0, 1, 1, 1, 1, 1],
+                [1, 1, 1, 1, 1, 0, 0, 0, 0, 0],
+                [1, 1, 1, 1, 1, 0, 0, 0, 0, 1],
+                [1, 2, 1, 1, 1, 1, 0, 0, 1, 1],
+                [1, 0, 1, 1, 1, 1, 1, 1, 1, 1],
+                [1, 0, 1, 1, 1, 1, 1, 1, 1, 1],
+                [1, 0, 1, 1, 0, 0, 0, 1, 1, 1]
            ]
         }else{
             var endGame = prompt("Vous avez fini le jeu !\nVeuillez entrer votre nom ?");
@@ -101,147 +101,9 @@ class GameMap{
 var victoire = false;
 
 
-var memoireImage = "s";
-
-class Perso{
-    constructor(ctx,keys,map) {
-        this.ctx = ctx;
-        this.keys = keys;
-        this.map = map;
-        this.x = 0*80;
-        this.y = 2*80;
-    }
-
-    move() {
-        if(allowToMove) {
-            sprite = 0;
-            var soonZ = this.y/80-1 == -1 ? 1 : this.y/80-1;
-            var soonS = this.y/80+1 == 10 ? 1 : this.y/80+1;
-            var soonQ = this.x/80-1 == -1 ? 1 : this.x/80-1;
-            var soonD = this.x/80+1 == 10 ? 1 : this.x/80+1;
-
-            var z = this.map.getMap()[soonZ][this.x/80];
-            var s = this.map.getMap()[soonS][this.x/80];
-            var q = this.map.getMap()[this.y/80][soonQ];
-            var d = this.map.getMap()[this.y/80][soonD];
-
-            if (this.keys.left && this.x > 0 && (q == 0 || q == 2 || q == 3 || q == 4)) {
-                allowToMove= false;
-                nextCaseX -= 800 / 10;
-                nextCaseY = this.y;
-                memoireImage = "q";
-
-            } else if (this.keys.right && this.x < 720 && (d == 0 || d == 2 || d == 3 || d == 4)) {
-                allowToMove= false;
-                nextCaseX += 800 / 10;
-                nextCaseY = this.y;
-                memoireImage = "d";
-            }
-            if (this.keys.up && this.y > 0 && (z == 0 || z == 2 || z == 3 || z == 4)) {
-                allowToMove= false;
-                nextCaseY -= 800 / 10;
-                nextCaseX = this.x;
-                memoireImage = "z";
-
-            } else if (this.keys.down && this.y < 720 && (s == 0 || s == 2 || s == 3 || s == 4)) {
-                allowToMove= false;
-                nextCaseY += 800 / 10;
-                nextCaseX = this.x;
-                memoireImage = "s";
-
-            }
-            if (this.map.getMap()[this.y/80][this.x/80] == 2){
-                nextLevel = nextLevel + 1;
-                level = level + 1;
-                afficheLevel.innerHTML = "Level : "+level+"";
-                this.map.addMapLevel(nextLevel);
-            }
-            if(this.map.getMap()[this.y/80][this.x/80] == 3){
-                this.map.getMap()[this.y/80][this.x/80] = 0;
-                score = score + 40;
-                afficheScore.innerHTML = "Score : "+score+"";
-                switch (nextLevel) {
-                    case 1: {
-                        this.map.getMap()[4][8] = 0;
-                        break;
-                    }
-                    case 2: {
-                        this.map.getMap()[8][1] = 0;
-                        break;
-                    }
-                }
-
-            }
-            if(this.map.getMap()[this.y/80][this.x/80] == 4){
-                this.map.getMap()[this.y/80][this.x/80] = 0;
-                score = score - 40;
-                afficheScore.innerHTML = "Score : "+score+"";
-                switch (nextLevel) {
-                    case 1: {
-                        this.map.getMap()[4][8] = 1;
-                        break;
-                    }
-                    case 2: {
-                        this.map.getMap()[8][1] = 1;
-                        break;
-                    }
-                }  
-            }
-        }
-        else {
-            sCompteur++;
-            if(sCompteur%5 == 0) {
-                if(sprite+1 > 4) {
-                    sprite = 0;
-                }
-                else {
-                    sprite++;
-                }
-
-            }
 
 
-            if (memoireImage == "q") {
-                this.x -= 2;
 
-            } else if (memoireImage== "d") {
-                this.x +=2;
-            }
-
-            if (memoireImage == "z") {
-                this.y -=2;
-
-            } else if (memoireImage == "s") {
-                this.y +=2;
-            }
-            if(this.x == nextCaseX && this.y == nextCaseY){
-                allowToMove = true;
-            }
-
-        }
-        //Tentative de piege ou piece
-       
-        // Condition de victoire
-
-
-        }
-
-
-    
-
-
-    draw() {
-
-        this.ctx.save();
-        var character = new Image();
-        character.src ="./../MEDIA/Luffy_"+memoireImage+sprite+".png";
-
-        //character.style.filter = "brightness(50%)";
-        ctx.drawImage(character,this.x,this.y);
-        //processLight(this, this.ctx);
-        this.ctx.restore();
-    }
-}
 
 
 function highScore(){
@@ -263,7 +125,7 @@ function highScore(){
 
 
 
-function init() {
+function start() {
     title.style.display = 'none';
     soundBtn.style.display = 'none';
     buttons[0].style.visibility = 'hidden';
@@ -285,16 +147,16 @@ function init() {
     this.bindKeyboard();
 
     var mapJeu = [
-            [1,1,1,1,1,1,1,1,1,1],
-            [1,3,1,1,1,1,1,1,1,1],
-            [0,0,0,1,1,1,1,1,1,1],
-            [1,1,2,0,1,1,1,1,1,1],
-            [1,1,1,4,1,0,0,0,0,0],
-            [1,1,0,0,0,0,3,0,4,1],
-            [1,1,3,0,4,1,0,3,1,1],
-            [1,3,0,1,1,1,1,1,1,1],
-            [1,0,1,1,1,1,1,1,1,1],
-            [1,1,1,1,1,1,1,1,1,1]
+        [1,1,1,1,1,1,1,1,1,1],
+        [1,5,1,1,1,1,1,1,1,1],
+        [0,0,0,1,1,1,1,1,1,1],
+        [1,1,0,0,1,1,1,1,1,1],
+        [1,1,1,4,1,0,0,0,0,6],
+        [1,1,0,0,0,0,3,0,4,1],
+        [1,1,3,0,4,1,0,3,1,1],
+        [1,3,0,1,1,1,1,1,1,1],
+        [1,0,1,1,1,1,1,1,1,1],
+        [1,1,1,1,1,1,1,1,1,1]
     ]
 
     this.map = new GameMap(this.ctx, mapJeu);
@@ -303,6 +165,12 @@ function init() {
 
     
     requestAnimationFrame(anime);
+}
+
+function init() {
+    // on ne demarre que quand tout est chargé
+    chargerImages(start);
+
 }
 
 
