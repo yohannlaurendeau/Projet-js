@@ -67,3 +67,12 @@
 
 }
 
+#nom {
+  position: absolute;
+  display: inline-block;
+  left:325px;
+  top:300px;
+  font-size: 30px;
+
+}
+
