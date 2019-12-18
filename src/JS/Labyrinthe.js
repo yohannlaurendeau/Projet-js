@@ -83,6 +83,18 @@ class GameMap {
 
 }
 
+function highScore(){
+    //Mettre ici l'affichage de mon array
+    //console.log("nom : " + arrayScore);
+    //afficheScore.innerHTML = "Nom : "+arrayScore+"";    
+    title.innerHTML = 'Score';
+    title.style.left = '350px';
+    soundBtn.style.display = 'none';
+    buttons[0].style.visibility = 'hidden'; 
+    afficheNom.innerHTML = arrayScore;
+    //console.log("SCORE : " + arrayScore);
+}   
+
 
 function start() {
     title.style.display = 'none';

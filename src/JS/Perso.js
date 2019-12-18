@@ -69,24 +69,24 @@ class Perso{
                 memoireImage = "s";
 
             }
-            if(this.map.getMap()[this.y/80][this.x/80] == 5) {
-                this.map.getMap()[this.y / 80][this.x / 80] = 0;
-                for (level = 1;level < 4;level ++) {
-                    for (var x = 0; x < 10; x++) {
-                        for (var y = 0; y < 10; y++) {
-                            if (this.map.getMap()[x][y] == 6) {
-                                this.map.getMap()[x][y] = 2;
+            for (level = 1;level < 4;level++) {
+                if(this.map.getMap()[this.y/80][this.x/80] == 5) {
+                    this.map.getMap()[this.y / 80][this.x / 80] = 0;                
+                        console.log(level);
+                        for (var x = 0; x < 10; x++) {
+                            for (var y = 0; y < 10; y++) {
+                                if (this.map.getMap()[x][y] == 6) {
+                                    this.map.getMap()[x][y] = 2;
+                                }
                             }
                         }
                     }
-                }
-
             }
 
             if (this.map.getMap()[this.y/80][this.x/80] == 2){
                 nextLevel = nextLevel + 1;
-                level = level + 1;
-                afficheLevel.innerHTML = "Level : "+level+"";
+               //level = level + 1;
+                afficheLevel.innerHTML = "Level : "+nextLevel+"";
                 this.map.addMapLevel(nextLevel);
             }
             if(this.map.getMap()[this.y/80][this.x/80] == 3){
