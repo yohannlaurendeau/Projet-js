@@ -5,89 +5,76 @@ var afficheLevel = document.getElementById("level");
 var afficheScore = document.getElementById("score");
 var afficheNom = document.getElementById("nom");
 
-
 var sound = new Audio();
 sound.src = "../MEDIA/pop.wav";
 
-
-var nextLevel = 1;
-var score = 0 ;
 var arrayScore = [];
 if (sessionStorage.getItem("autosave")) {
-                        //Restauration du contenu du champ
-    arrayScore = [sessionStorage.getItem("autosave")];            
+    //Restauration du contenu du champ
+    arrayScore = [sessionStorage.getItem("autosave")];
 }
-var allowToMove = true;
-//Sprite du perso
-var sprite = 0;
-//Compteur pour sprite TODO: A changer
-var sCompteur = 0;
-var nextCaseX = 0;
-var nextCaseY = 160;
 
-class GameMap{
+
+class GameMap {
     constructor(ctx, map) {
         this.ctx = ctx;
         this.map2 = map;
     }
 
-    dessinerMap(){
+    dessinerMap() {
         //DESSINE LA MAP
         var images = this.map2;
-        for(var i=0;i<10;i++){
-            for(var j=0;j<10;j++){
+        for (var i = 0; i < 10; i++) {
+            for (var j = 0; j < 10; j++) {
                 var monImage = new Image();
-                monImage.src ="./../MEDIA/"+this.map2[i][j]+".png";
+                monImage.src = "./../MEDIA/" + this.map2[i][j] + ".png";
                 images.push(monImage);
-                this.ctx.drawImage(monImage, j*80,i*80);
-               	
+                this.ctx.drawImage(monImage, j * 80, i * 80);
+
             }
         }
     }
 
 
-
-    addMapLevel(level){
-        if(level == 2){
-           this.map2 = [
-               [0, 1, 1, 1, 0, 1, 1, 1, 1, 1],
-               [0, 0, 1, 1, 0, 1, 1, 1, 1, 1],
-               [0, 0, 0, 1, 0, 1, 1, 1, 1, 1],
-               [1, 1, 0, 0, 0, 1, 1, 1, 1, 1],
-               [1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
-               [1, 1, 0, 0, 0, 0, 0, 0, 0, 1],
-               [1, 1, 0, 0, 0, 1, 0, 0, 1, 1],
-               [1, 0, 0, 1, 1, 1, 1, 1, 1, 1],
-               [1, 0, 1, 1, 1, 1, 1, 1, 1, 1],
-               [1, 2, 1, 1, 0, 0, 0, 1, 1, 1]
-           ]
-        }else if(level == 3){
+    addMapLevel(level) {
+        if (level == 2) {
             console.log("array avant fin : " + arrayScore);
+            this.map2 = [
+                [0, 1, 1, 1, 0, 1, 1, 1, 1, 1],
+                [0, 0, 1, 1, 5, 1, 1, 1, 1, 1],
+                [0, 0, 0, 1, 0, 1, 1, 1, 1, 1],
+                [1, 1, 0, 0, 0, 1, 1, 1, 1, 1],
+                [1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+                [1, 1, 0, 0, 0, 0, 0, 0, 0, 1],
+                [1, 1, 0, 0, 0, 1, 0, 0, 1, 1],
+                [1, 0, 0, 1, 1, 1, 1, 1, 1, 1],
+                [1, 6, 1, 1, 1, 1, 1, 1, 1, 1],
+                [1, 1, 1, 1, 0, 0, 0, 1, 1, 1]
+            ]
+        } else if (level == 3) {
             this.map2 = [
                 [0, 1, 1, 1, 0, 1, 1, 1, 1, 1],
                 [0, 0, 1, 1, 0, 1, 1, 1, 1, 1],
                 [0, 0, 0, 1, 0, 1, 1, 1, 1, 1],
                 [1, 1, 0, 0, 0, 1, 1, 1, 1, 1],
-                [1, 1, 1, 1, 1, 0, 0, 0, 0, 0],
+                [1, 1, 1, 1, 1, 0, 0, 0, 0, 6],
                 [1, 1, 1, 1, 1, 0, 0, 0, 0, 1],
-                [1, 2, 1, 1, 1, 1, 0, 0, 1, 1],
-                [1, 0, 1, 1, 1, 1, 1, 1, 1, 1],
-                [1, 0, 1, 1, 1, 1, 1, 1, 1, 1],
+                [1, 5, 1, 1, 1, 1, 0, 0, 1, 1],
+                [1, 0, 1, 1, 0, 0, 0, 1, 1, 1],
+                [1, 0, 0, 0, 0, 1, 1, 1, 1, 1],
                 [1, 0, 1, 1, 0, 0, 0, 1, 1, 1]
-           ]
-        }else{
+            ]
+        } else {
             var endGame = prompt("Vous avez fini le jeu !\nVeuillez entrer votre nom ?");
             console.log("array avant fin : " + arrayScore);
-            if (endGame) {                
-                
-                arrayScore.push(endGame);           
-                sessionStorage.setItem('autosave', arrayScore);                     
-                document.location.reload(); 
-                               
-   				//init();
-  			}
+            if (endGame) {
+
+                arrayScore.push(endGame);
+                sessionStorage.setItem('autosave', arrayScore);
+                document.location.reload();
+            }
+
         }
-        
     }
 
     getMap() {
@@ -95,34 +82,6 @@ class GameMap{
     }
 
 }
-
-
-
-var victoire = false;
-
-
-
-
-
-
-
-function highScore(){
-    //Mettre ici l'affichage de mon array
-    //console.log("nom : " + arrayScore);
-    //afficheScore.innerHTML = "Nom : "+arrayScore+"";    
-    title.innerHTML = 'Score';
-    title.style.left = '350px';
-    soundBtn.style.display = 'none';
-    buttons[0].style.visibility = 'hidden';
-
-       
-    afficheNom.innerHTML = arrayScore;
-            
-    
-
-    //console.log("SCORE : " + arrayScore);
-}	
-
 
 
 function start() {
@@ -136,7 +95,7 @@ function start() {
     afficheLevel.innerHTML = "Level : "+level+"";
     score = 0;
     afficheScore.innerHTML = "Score :"+score+"";
-    
+
 
     this.keys = {
         down: false,
@@ -163,7 +122,7 @@ function start() {
 
     this.perso = new Perso(this.ctx, this.keys, this.map);
 
-    
+
     requestAnimationFrame(anime);
 }
 
@@ -228,10 +187,10 @@ function bindKeyboard() {
     var revertY = false;
     var revertX = false;
     -2 -1 0 1 2
-    for(let i = -1 * nbCouches; i <= nbCouches; i++) {  
-        revertY = false;        
-        coucheNumberY = nbCouches;              
-        for(let j = -1 * nbCouches; j <= nbCouches; j++){            
+    for(let i = -1 * nbCouches; i <= nbCouches; i++) {
+        revertY = false;
+        coucheNumberY = nbCouches;
+        for(let j = -1 * nbCouches; j <= nbCouches; j++){
             const pixels = context.getImageData(player.x + i * 64, player.y + j * 64, 64, 64);
             var d = pixels.data;
             for (var p = 0; p < d.length; p+=4) {
@@ -241,19 +200,19 @@ function bindKeyboard() {
                     d[p+1] += newValue;
                     d[p+2] += newValue;
                 }
-                                       
-            }    
-            context.putImageData(pixels, player.x + i * 64, player.y + j * 64);            
-            
+
+            }
+            context.putImageData(pixels, player.x + i * 64, player.y + j * 64);
+
             if(coucheNumberY == 0) {
                 revertY = true;
-            }            
-            
+            }
+
             if(revertY) {
                 coucheNumberY++;
             }else {
                 coucheNumberY--;
-            }                                       
+            }
         }
 
         if(coucheNumberX == 0) {
@@ -264,13 +223,13 @@ function bindKeyboard() {
             coucheNumberX++;
         }else {
             coucheNumberX--;
-        } 
+        }
     }
 }*/
 
 
 
-function anime() {		
+function anime() {
     this.map.dessinerMap();
     this.perso.move();
     this.perso.draw();
@@ -279,6 +238,8 @@ function anime() {
     }
 
 }
+
+
 
 
 
