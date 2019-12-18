@@ -90,10 +90,10 @@ function highScore(){
     title.innerHTML = 'Score';
     title.style.left = '350px';
     soundBtn.style.display = 'none';
-    buttons[0].style.visibility = 'hidden'; 
+    buttons[0].style.visibility = 'hidden';
     afficheNom.innerHTML = arrayScore;
     //console.log("SCORE : " + arrayScore);
-}   
+}
 
 
 function start() {
@@ -134,6 +134,7 @@ function start() {
 
     this.perso = new Perso(this.ctx, this.keys, this.map);
 
+    this.monstre = new Monstre(this.ctx,this.map);
 
     requestAnimationFrame(anime);
 }
@@ -145,51 +146,7 @@ function init() {
 }
 
 
-function bindKeyboard() {
-    window.addEventListener('keydown', e => {
-        switch (e.key) {
-            case 'ArrowDown': {
-                this.keys.down = true;
-                break;
-            }
-            case 'ArrowUp': {
-                this.keys.up = true;
-                break;
-            }
-            case 'ArrowLeft': {
-                this.keys.left = true;
-                break;
-            }
-            case 'ArrowRight': {
-                this.keys.right = true;
-                break;
-            }
-        }
 
-    }, true);
-
-    window.addEventListener('keyup', e => {
-        switch (e.key) {
-            case 'ArrowDown': {
-                this.keys.down = false;
-                break;
-            }
-            case 'ArrowUp': {
-                this.keys.up = false;
-                break;
-            }
-            case 'ArrowLeft': {
-                this.keys.left = false;
-                break;
-            }
-            case 'ArrowRight': {
-                this.keys.right = false;
-                break;
-            }
-        }
-
-    });
-}
 
 
 /*const processLight = async (player, context) => {
@@ -245,11 +202,18 @@ function anime() {
     this.map.dessinerMap();
     this.perso.move();
     this.perso.draw();
+    this.monstre.move();
+    this.monstre.draw();
     if(victoire == false){
         requestAnimationFrame(anime);
     }
 
 }
+
+
+
+
+
 
 
 

@@ -71,21 +71,21 @@ class Perso{
             }
             for (level = 1;level < 4;level++) {
                 if(this.map.getMap()[this.y/80][this.x/80] == 5) {
-                    this.map.getMap()[this.y / 80][this.x / 80] = 0;                
-                        console.log(level);
-                        for (var x = 0; x < 10; x++) {
-                            for (var y = 0; y < 10; y++) {
-                                if (this.map.getMap()[x][y] == 6) {
-                                    this.map.getMap()[x][y] = 2;
-                                }
+                    this.map.getMap()[this.y / 80][this.x / 80] = 0;
+                    console.log(level);
+                    for (var x = 0; x < 10; x++) {
+                        for (var y = 0; y < 10; y++) {
+                            if (this.map.getMap()[x][y] == 6) {
+                                this.map.getMap()[x][y] = 2;
                             }
                         }
                     }
+                }
             }
 
             if (this.map.getMap()[this.y/80][this.x/80] == 2){
                 nextLevel = nextLevel + 1;
-               //level = level + 1;
+                //level = level + 1;
                 afficheLevel.innerHTML = "Level : "+nextLevel+"";
                 this.map.addMapLevel(nextLevel);
             }
@@ -161,6 +161,52 @@ class Perso{
         //processLight(this, this.ctx);
         this.ctx.restore();
     }
+}
+
+function bindKeyboard() {
+    window.addEventListener('keydown', e => {
+        switch (e.key) {
+            case 'ArrowDown': {
+                this.keys.down = true;
+                break;
+            }
+            case 'ArrowUp': {
+                this.keys.up = true;
+                break;
+            }
+            case 'ArrowLeft': {
+                this.keys.left = true;
+                break;
+            }
+            case 'ArrowRight': {
+                this.keys.right = true;
+                break;
+            }
+        }
+
+    }, true);
+
+    window.addEventListener('keyup', e => {
+        switch (e.key) {
+            case 'ArrowDown': {
+                this.keys.down = false;
+                break;
+            }
+            case 'ArrowUp': {
+                this.keys.up = false;
+                break;
+            }
+            case 'ArrowLeft': {
+                this.keys.left = false;
+                break;
+            }
+            case 'ArrowRight': {
+                this.keys.right = false;
+                break;
+            }
+        }
+
+    });
 }
 
 function chargerImages(callback) {
