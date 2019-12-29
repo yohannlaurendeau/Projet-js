@@ -1,18 +1,10 @@
 var title = document.getElementById('title');
 var buttons = document.getElementsByClassName('buttons');
-var soundBtn = document.getElementById('soundBtn');
 var afficheLevel = document.getElementById("level");
 var afficheScore = document.getElementById("score");
-var afficheNom = document.getElementById("nom");
 
 var sound = new Audio();
 sound.src = "../MEDIA/pop.wav";
-
-var arrayScore = [];
-if (sessionStorage.getItem("autosave")) {
-    //Restauration du contenu du champ
-    arrayScore = [sessionStorage.getItem("autosave")];
-}
 
 
 class GameMap {
@@ -68,9 +60,6 @@ class GameMap {
             var endGame = prompt("Vous avez fini le jeu !\nVeuillez entrer votre nom ?");
             console.log("array avant fin : " + arrayScore);
             if (endGame) {
-
-                arrayScore.push(endGame);
-                sessionStorage.setItem('autosave', arrayScore);
                 document.location.reload();
             }
 
@@ -89,7 +78,6 @@ function highScore(){
     //afficheScore.innerHTML = "Nom : "+arrayScore+"";    
     title.innerHTML = 'Score';
     title.style.left = '350px';
-    soundBtn.style.display = 'none';
     buttons[0].style.visibility = 'hidden';
     afficheNom.innerHTML = arrayScore;
     //console.log("SCORE : " + arrayScore);
@@ -98,7 +86,6 @@ function highScore(){
 
 function start() {
     title.style.display = 'none';
-    soundBtn.style.display = 'none';
     buttons[0].style.visibility = 'hidden';
     canvas = document.querySelector('#canvas') ;
     this.ctx = canvas.getContext('2d') ;
