@@ -30,7 +30,6 @@ class GameMap {
 
     addMapLevel(level) {
         if (level == 2) {
-            console.log("array avant fin : " + arrayScore);
             this.map2 = [
                 [0, 1, 1, 1, 0, 1, 1, 1, 1, 1],
                 [0, 0, 1, 1, 5, 1, 1, 1, 1, 1],
@@ -58,8 +57,9 @@ class GameMap {
             ]
         } else {
             var endGame = prompt("Vous avez fini le jeu !\nVeuillez entrer votre nom ?");
-            console.log("array avant fin : " + arrayScore);
             if (endGame) {
+                sessionStorage.setItem('nomJoueur', endGame);
+                sessionStorage.setItem('scoreJoueur', score);
                 document.location.reload();
             }
 
@@ -73,14 +73,32 @@ class GameMap {
 }
 
 function highScore(){
-    //Mettre ici l'affichage de mon array
-    //console.log("nom : " + arrayScore);
-    //afficheScore.innerHTML = "Nom : "+arrayScore+"";    
-    title.innerHTML = 'Score';
-    title.style.left = '350px';
+    //Mettre ici l'affichage de mon array 
+    title.innerHTML = 'Your current score';
+    title.style.left = '260px';
     buttons[0].style.visibility = 'hidden';
-    afficheNom.innerHTML = arrayScore;
-    //console.log("SCORE : " + arrayScore);
+
+    var afficheNom = document.createElement("p");
+    afficheNom.setAttribute("id","nom");
+
+    if (sessionStorage.getItem('nomJoueur') && sessionStorage.getItem('scoreJoueur')){
+        //Restauration du contenu du champ        
+        afficheNom.innerHTML= sessionStorage.getItem('nomJoueur') + " : " + sessionStorage.getItem('scoreJoueur');
+        document.body.appendChild(afficheNom);        
+    }
+
+    var btnRetour = document.createElement("BUTTON");
+    btnRetour.innerHTML = "Retour";
+    btnRetour.setAttribute("id", "btnRetour");
+    btnRetour.onclick = function () {
+        buttons[0].style.visibility = 'visible';
+        afficheNom.style.visibility = 'hidden';
+        title.innerHTML = 'Adventure game !';
+        title.style.left = '260px';
+        btnRetour.style.visibility = 'hidden'; 
+        sound.play();
+    };
+    document.body.appendChild(btnRetour);
 }
 
 
