@@ -91,16 +91,21 @@ class Perso{
             }
             if(this.map.getMap()[this.y/80][this.x/80] == 3){
                 this.map.getMap()[this.y/80][this.x/80] = 0;
-                score = score + 40;
+                var i = Math.round(Math.random());
+                console.log(i);
+                if (i == 1) {
+                    score = score - 40;
+
+                }
+                else  {
+                    score = score + 60;
+
+                }
                 afficheScore.innerHTML = "Score : "+score+"";
 
-            }
-            if(this.map.getMap()[this.y/80][this.x/80] == 4){
-                this.map.getMap()[this.y/80][this.x/80] = 0;
-                score = score - 40;
-                afficheScore.innerHTML = "Score : "+score+"";
 
             }
+
 
         }
         else {
