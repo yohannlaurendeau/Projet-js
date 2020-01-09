@@ -232,7 +232,11 @@ function chargerImages(callback) {
                 //console.log("image " + characterImage.src + " chargée dans index " + j);
                 characterSprites[j] = characterImage;
 
-                if (nbImagesChargees == nbImages) callback();
+                if (nbImagesChargees == nbImages){
+                    if(callback){
+                        callback();    
+                    }
+                } 
             }
         })(i);
 
