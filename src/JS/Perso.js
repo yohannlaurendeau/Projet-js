@@ -1,8 +1,8 @@
 var allowToMove = true;
 
-var sprite = 0;
 
-var sCompteur =0;
+var compteur ;
+
 var nextCaseX = 0*80;
 var nextCaseY = 2*80;
 
@@ -16,6 +16,7 @@ var score = 0 ;
 
 var characterSprites = [];
 let currentIndexImage = 0;
+
 
 class Perso{
 
@@ -33,7 +34,7 @@ class Perso{
 
 
         if(allowToMove) {
-            sprite = 0;
+
             var soonZ = this.y/80-1 == -1 ? 1 : this.y/80-1;
             var soonS = this.y/80+1 == 10 ? 1 : this.y/80+1;
             var soonQ = this.x/80-1 == -1 ? 1 : this.x/80-1;
@@ -49,6 +50,7 @@ class Perso{
                 nextCaseX -= 800 / 10;
                 nextCaseY = this.y;
                 memoireImage = "q";
+
 
             } else if (this.keys.right && this.x < 720 && (d == 0 || d == 2 || d == 3 || d == 4 || d == 5)) {
                 allowToMove= false;
@@ -111,16 +113,6 @@ class Perso{
         else {
 
 
-            sCompteur ++;
-            if(sCompteur%5 == 0) {
-                if(sprite+1 > 4) {
-                    sprite = 0;
-                }
-                else {
-                    sprite ++;
-                }
-
-            }
 
 
             if (memoireImage == "q") {
@@ -148,16 +140,36 @@ class Perso{
 
     }
 
-
-
-
-
-
-
-    draw(time) {// time base animation dans mooc; calculer un delta
+    draw() {// time base animation dans mooc; calculer un delta
         this.ctx.save();
         // on dessine l'image d'index currentIndexImage
-        ctx.drawImage(characterSprites[currentIndexImage],this.x,this.y);//faire pour les directions
+
+        var sprite = currentIndexImage;
+        compteur ++;
+        if(compteur%5 == 0) {
+            if(sprite+1 > 4) {
+                sprite = 0;
+            }
+            else {
+                sprite ++;
+            }
+
+        }
+
+        ctx.drawImage(characterSprites[currentIndexImage++],this.x,this.y);
+       //faire pour les directions
+
+        compteur ++;
+        if(compteur%5 == 0) {
+            if(currentIndexImage+1 > 4) {
+                currentIndexImage = 0;
+            }
+            else {
+                currentIndexImage ++;
+            }
+
+        }
+
         if(currentIndexImage  == 4) currentIndexImage = 0;
         this.ctx.restore();
     }
@@ -210,6 +222,7 @@ function bindKeyboard() {
 }
 
 function chargerImages(callback) {
+
     let nbImages =5;
     let nbImagesChargees = 0;
 

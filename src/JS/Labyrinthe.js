@@ -206,6 +206,7 @@ function init() {
 
 function anime() {
     this.map.dessinerMap();
+    chargerImages();
     this.perso.move();
     this.perso.draw();
     this.monstre.move();
@@ -213,7 +214,7 @@ function anime() {
 
     if(victoire == false){
         requestAnimationFrame(anime);
-        chargerImages();
+
     }
 
 }
