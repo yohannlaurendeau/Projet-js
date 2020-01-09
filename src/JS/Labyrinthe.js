@@ -206,9 +206,9 @@ function init() {
 
 function anime() {
     this.map.dessinerMap();
-    chargerImages();
     this.perso.move();
     this.perso.draw();
+    chargerImages();
     this.monstre.move();
     this.monstre.draw();
 

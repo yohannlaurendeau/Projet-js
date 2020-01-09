@@ -1,7 +1,7 @@
 var allowToMove = true;
 
 
-var compteur ;
+var compteur = 0;
 
 var nextCaseX = 0*80;
 var nextCaseY = 2*80;
@@ -74,7 +74,6 @@ class Perso{
             for (level = 1;level < 5;level++) {
                 if(this.map.getMap()[this.y/80][this.x/80] == 5) {
                     this.map.getMap()[this.y / 80][this.x / 80] = 0;
-                    console.log(level);
                     for (var x = 0; x < 10; x++) {
                         for (var y = 0; y < 10; y++) {
                             if (this.map.getMap()[x][y] == 6) {
@@ -94,7 +93,6 @@ class Perso{
             if(this.map.getMap()[this.y/80][this.x/80] == 3){
                 this.map.getMap()[this.y/80][this.x/80] = 0;
                 var i = Math.round(Math.random());
-                console.log(i);
                 if (i == 1) {
                     score = score - 40;
 
@@ -111,10 +109,6 @@ class Perso{
 
         }
         else {
-
-
-
-
             if (memoireImage == "q") {
                 this.x -= 2;
 
@@ -143,8 +137,8 @@ class Perso{
     draw() {// time base animation dans mooc; calculer un delta
         this.ctx.save();
         // on dessine l'image d'index currentIndexImage
-
-        var sprite = currentIndexImage;
+        //console.log(currentIndexImage);
+        var sprite = 0;
         compteur ++;
         if(compteur%5 == 0) {
             if(sprite+1 > 4) {
@@ -156,9 +150,8 @@ class Perso{
 
         }
 
-        ctx.drawImage(characterSprites[currentIndexImage++],this.x,this.y);
+        ctx.drawImage(characterSprites[currentIndexImage],this.x,this.y);
        //faire pour les directions
-
         compteur ++;
         if(compteur%5 == 0) {
             if(currentIndexImage+1 > 4) {
@@ -172,8 +165,12 @@ class Perso{
 
         if(currentIndexImage  == 4) currentIndexImage = 0;
         this.ctx.restore();
-    }
 }
+
+
+    
+}
+
 
 function bindKeyboard() {
     window.addEventListener('keydown', e => {
@@ -232,7 +229,7 @@ function chargerImages(callback) {
             characterImage.src = "./../MEDIA/Luffy_" + memoireImage + j + ".png";
             characterImage.onload = () => {
                 nbImagesChargees++;
-                console.log("image " + characterImage.src + " chargée dans index " + j);
+                //console.log("image " + characterImage.src + " chargée dans index " + j);
                 characterSprites[j] = characterImage;
 
                 if (nbImagesChargees == nbImages) callback();
