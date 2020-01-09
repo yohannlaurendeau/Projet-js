@@ -204,64 +204,16 @@ function init() {
 
 
 
-
-/*const processLight = async (player, context) => {
-    const nbCouches = 3;
-    var coucheNumberY = nbCouches;
-    var coucheNumberX = nbCouches;
-    var revertY = false;
-    var revertX = false;
-    -2 -1 0 1 2
-    for(let i = -1 * nbCouches; i <= nbCouches; i++) {
-        revertY = false;
-        coucheNumberY = nbCouches;
-        for(let j = -1 * nbCouches; j <= nbCouches; j++){
-            const pixels = context.getImageData(player.x + i * 64, player.y + j * 64, 64, 64);
-            var d = pixels.data;
-            for (var p = 0; p < d.length; p+=4) {
-                const newValue = 80 - coucheNumberY * 8 - coucheNumberX * 8;
-                if(newValue > d[p] || newValue > d[p + 1] || newValue > d[p + 2] ) {
-                    d[p] += newValue;
-                    d[p+1] += newValue;
-                    d[p+2] += newValue;
-                }
-
-            }
-            context.putImageData(pixels, player.x + i * 64, player.y + j * 64);
-
-            if(coucheNumberY == 0) {
-                revertY = true;
-            }
-
-            if(revertY) {
-                coucheNumberY++;
-            }else {
-                coucheNumberY--;
-            }
-        }
-
-        if(coucheNumberX == 0) {
-            revertX = true;
-        }
-
-        if(revertX) {
-            coucheNumberX++;
-        }else {
-            coucheNumberX--;
-        }
-    }
-}*/
-
-
-
 function anime() {
     this.map.dessinerMap();
     this.perso.move();
     this.perso.draw();
     this.monstre.move();
     this.monstre.draw();
+
     if(victoire == false){
         requestAnimationFrame(anime);
+        chargerImages();
     }
 
 }

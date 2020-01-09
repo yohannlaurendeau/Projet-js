@@ -14,6 +14,9 @@ var memoireImage = "s";
 var nextLevel = 1;
 var score = 0 ;
 
+var SPRITESHEET_URL = "https://user.oc-static.com/upload/2018/04/21/15243188314387_Luffy.png";
+
+
 var characterSprites = [];
 let currentIndexImage = 0;
 
@@ -111,16 +114,6 @@ class Perso{
         else {
 
 
-            sCompteur ++;
-            if(sCompteur%5 == 0) {
-                if(sprite+1 > 4) {
-                    sprite = 0;
-                }
-                else {
-                    sprite ++;
-                }
-
-            }
 
 
             if (memoireImage == "q") {
@@ -157,8 +150,11 @@ class Perso{
     draw(time) {// time base animation dans mooc; calculer un delta
         this.ctx.save();
         // on dessine l'image d'index currentIndexImage
-        ctx.drawImage(characterSprites[currentIndexImage],this.x,this.y);//faire pour les directions
-        if(currentIndexImage  == 4) currentIndexImage = 0;
+
+
+        //character.style.filter = "brightness(50%)";
+
+        //processLight(this, this.ctx);
         this.ctx.restore();
     }
 }
@@ -209,22 +205,25 @@ function bindKeyboard() {
     });
 }
 
-function chargerImages(callback) {
-    let nbImages =5;
-    let nbImagesChargees = 0;
+var spritesheet;
+spritesheet = new Image();
+spritesheet.src = SPRITESHEET_URL;
 
-    for(var i=0; i <nbImages; i++){
-        (function(j) {
-            var characterImage = new Image();
-            characterImage.src = "./../MEDIA/Luffy_" + memoireImage + j + ".png";
-            characterImage.onload = () => {
-                nbImagesChargees++;
-                console.log("image " + characterImage.src + " chargée dans index " + j);
-                characterSprites[j] = characterImage;
 
-                if (nbImagesChargees == nbImages) callback();
-            }
-        })(i);
-
-    }
+function SpriteImage(img,x,y,width,height){
+    this.img = img;
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.draw = function(ctx,xPos,yPos){
+        ctx.drawImage(this.img,this.x,this.y,this.width,this.height,xPos,yPos);
+    };
 }
+
+
+
+
+
+
+
