@@ -71,6 +71,20 @@ class Perso{
                 memoireImage = "s";
 
             }
+            if(this.keys.left && this.x > 0 && q == 7){
+                allowToMove = false;
+                nextCaseX -= 800 / 10;
+                nextCaseY = this.y;
+                memoireImage = "q";
+
+                if (this.x > 0 && (q == 7)) {
+                    nextCaseX -= 800 / 10;
+                    nextCaseY = this.y;
+                    memoireImage = "q";
+                }
+            }
+
+
             for (level = 1;level < 5;level++) {
                 if(this.map.getMap()[this.y/80][this.x/80] == 5) {
                     this.map.getMap()[this.y / 80][this.x / 80] = 0;
