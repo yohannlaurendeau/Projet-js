@@ -45,44 +45,41 @@ class Perso{
             var q = this.map.getMap()[this.y/80][soonQ];
             var d = this.map.getMap()[this.y/80][soonD];
 
-            if (this.keys.left && this.x > 0 && (q == 0 || q == 2 || q == 3 || q == 4 || q == 5)) {
+            if (this.keys.left && this.x > 0 && (q == 0 || q == 2 || q == 3 || q == 4 || q == 5 || q == 7)) {
                 allowToMove= false;
                 nextCaseX -= 800 / 10;
                 nextCaseY = this.y;
                 memoireImage = "q";
 
-
-            } else if (this.keys.right && this.x < 720 && (d == 0 || d == 2 || d == 3 || d == 4 || d == 5)) {
+            } else if (this.keys.right && this.x < 720 && (d == 0 || d == 2 || d == 3 || d == 4 || d == 5 || d == 7)) {
                 allowToMove= false;
                 nextCaseX += 800 / 10;
                 nextCaseY = this.y;
                 memoireImage = "d";
-            }
-            if (this.keys.up && this.y > 0 && (z == 0 || z == 2 || z == 3 || z == 4 || z == 5)) {
+
+            } else if (this.keys.up && this.y > 0 && (z == 0 || z == 2 || z == 3 || z == 4 || z == 5 ||z == 7)) {
                 allowToMove= false;
                 nextCaseY -= 800 / 10;
                 nextCaseX = this.x;
                 memoireImage = "z";
 
-            } else if (this.keys.down && this.y < 720 && (s == 0 || s == 2 || s == 3 || s == 4  || s == 5)) {
+            } else if (this.keys.down && this.y < 720 && (s == 0 || s == 2 || s == 3 || s == 4  || s == 5 || s == 7)) {
                 allowToMove= false;
                 nextCaseY += 800 / 10;
                 nextCaseX = this.x;
                 memoireImage = "s";
 
             }
-            if(this.keys.left && this.x > 0 && q == 7){
+            if(this.map.getMap()[this.y/80][this.x/80] == 7 && (q ==7 || q ==0)){
                 allowToMove = false;
-                nextCaseX -= 800 / 10;
+                nextCaseX -= 800 /10;
                 nextCaseY = this.y;
-                memoireImage = "q";
 
-                if (this.x > 0 && (q == 7)) {
-                    nextCaseX -= 800 / 10;
-                    nextCaseY = this.y;
-                    memoireImage = "q";
-                }
             }
+            
+
+
+
 
 
             for (level = 1;level < 5;level++) {
@@ -97,6 +94,7 @@ class Perso{
                     }
                 }
             }
+
 
             if (this.map.getMap()[this.y/80][this.x/80] == 2){
                 nextLevel = nextLevel + 1;
