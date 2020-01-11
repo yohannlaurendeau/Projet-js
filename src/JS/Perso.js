@@ -146,6 +146,9 @@ class Perso{
 
 
             if (this.map.getMap()[this.y/80][this.x/80] == 2){
+                var sound5 = new Audio();
+                sound5.src = "../MEDIA/son4.mp3";
+                sound5.play();
                 nextLevel = nextLevel + 1;
                 //level = level + 1;
                 afficheLevel.innerHTML = "Level : "+nextLevel+"";
