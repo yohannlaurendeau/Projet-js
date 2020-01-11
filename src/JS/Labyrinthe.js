@@ -198,6 +198,8 @@ function start() {
 function init() {
     // on ne demarre que quand tout est chargé
     chargerImages(start);
+    chargerImagesMonstre(start);
+
 
 }
 
@@ -209,6 +211,7 @@ function anime() {
     this.perso.move();
     this.perso.draw();
     chargerImages();
+    chargerImagesMonstre();
     this.monstre.move();
     this.monstre.draw();
 

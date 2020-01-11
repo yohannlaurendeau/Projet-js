@@ -6,6 +6,9 @@ var compteur = 0;
 var nextCaseX = 0*80;
 var nextCaseY = 2*80;
 
+var previousCaseX;
+var previousCaseY;
+
 var victoire = false;
 
 
@@ -47,36 +50,79 @@ class Perso{
 
             if (this.keys.left && this.x > 0 && (q == 0 || q == 2 || q == 3 || q == 4 || q == 5 || q == 7)) {
                 allowToMove= false;
+                previousCaseX = this.x;
+                previousCaseY = this.y;
                 nextCaseX -= 800 / 10;
                 nextCaseY = this.y;
                 memoireImage = "q";
 
             } else if (this.keys.right && this.x < 720 && (d == 0 || d == 2 || d == 3 || d == 4 || d == 5 || d == 7)) {
                 allowToMove= false;
+                previousCaseX = this.x;
+                previousCaseY = this.y;
                 nextCaseX += 800 / 10;
                 nextCaseY = this.y;
                 memoireImage = "d";
 
             } else if (this.keys.up && this.y > 0 && (z == 0 || z == 2 || z == 3 || z == 4 || z == 5 ||z == 7)) {
                 allowToMove= false;
+                previousCaseX = this.x;
+                previousCaseY = this.y;
                 nextCaseY -= 800 / 10;
                 nextCaseX = this.x;
                 memoireImage = "z";
 
             } else if (this.keys.down && this.y < 720 && (s == 0 || s == 2 || s == 3 || s == 4  || s == 5 || s == 7)) {
                 allowToMove= false;
+                previousCaseX = this.x;
+                previousCaseY = this.y;
                 nextCaseY += 800 / 10;
                 nextCaseX = this.x;
                 memoireImage = "s";
 
             }
             if(this.map.getMap()[this.y/80][this.x/80] == 7 && (q ==7 || q ==0)){
-                allowToMove = false;
-                nextCaseX -= 800 /10;
-                nextCaseY = this.y;
+                if(previousCaseX ==( this.x + 80)){
+
+
+                    allowToMove = false;
+                    nextCaseX -= 800 / 10;
+                    nextCaseY = this.y;
+                }
+
+
 
             }
-            
+            if(this.map.getMap()[this.y/80][this.x/80] == 7 && (d ==7 || d ==0)){
+                if(previousCaseX == (this.x - 80)) {
+                    allowToMove = false;
+                    nextCaseX += 800 / 10;
+                    nextCaseY = this.y;
+                }
+
+            }
+            if(this.map.getMap()[this.y/80][this.x/80] == 7 && (z ==7 || z ==0)){
+                if(previousCaseY == this.y + 80) {
+
+
+                    allowToMove = false;
+                    nextCaseY -= 800 / 10;
+                    nextCaseX = this.x;
+                }
+
+            }
+            if(this.map.getMap()[this.y/80][this.x/80] == 7 && (s ==7 || s ==0)){
+                if(previousCaseY == this.y- 80) {
+
+
+                    allowToMove = false;
+                    nextCaseY += 800 / 10;
+                    nextCaseX = this.x;
+                }
+
+            }
+
+
 
 
 
@@ -246,9 +292,9 @@ function chargerImages(callback) {
 
                 if (nbImagesChargees == nbImages){
                     if(callback){
-                        callback();    
+                        callback();
                     }
-                } 
+                }
             }
         })(i);
 
