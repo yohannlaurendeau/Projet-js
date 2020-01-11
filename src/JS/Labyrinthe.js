@@ -200,6 +200,10 @@ function init() {
     chargerImages(start);
     chargerImagesMonstre(start);
 
+    var sound2 = new Audio();
+    sound2.src = "../MEDIA/son.mp3";
+    sound2.loop=true;
+    sound2.play();
 
 }
 
