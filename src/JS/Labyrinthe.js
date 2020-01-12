@@ -1,10 +1,15 @@
 var title = document.getElementById('title');
+var affichage = document.getElementById('affichage');
 var buttonsDiv = document.getElementsByClassName('buttonsDiv');
 var afficheLevel = document.getElementById("level");
 var afficheScore = document.getElementById("score");
+var soundButton = document.getElementById("sound");
 
 var sound = new Audio();
 sound.src = "../MEDIA/pop.wav";
+
+var sound2 = new Audio();
+sound2.src = "../MEDIA/son.mp3";
 
 
 class GameMap {
@@ -161,7 +166,7 @@ function start() {
     level = 1;
     afficheLevel.innerHTML = "Level : "+level+"";
     score = 0;
-    afficheScore.innerHTML = "Score :"+score+"";
+    afficheScore.innerHTML = "Score : "+score+"";
 
 
     this.keys = {
@@ -199,13 +204,19 @@ function init() {
     chargerImages(start);
     chargerImagesMonstre(start);
 
-    var sound2 = new Audio();
-    sound2.src = "../MEDIA/son.mp3";
     sound2.loop=true;
     sound2.play();
 
 }
 
+function soundGestion(){
+    var r = confirm("Voulez-vous désactiver le son ? Appuyez sur 'Annuler' pour réactiver le son");
+    if (r == true) {
+        sound2.pause();
+    } else {
+        sound2.play();
+    }
+}
 
 
 
