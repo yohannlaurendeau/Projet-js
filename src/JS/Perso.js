@@ -20,6 +20,7 @@ var score = 0 ;
 var characterSprites = [];
 let currentIndexImage = 0;
 
+var scoreMin = 0;
 
 class Perso{
 
@@ -36,44 +37,45 @@ class Perso{
     move() {
 
 
+
         if(allowToMove) {
 
-            var soonZ = this.y/40-1 == -1 ? 1 : this.y/40-1;
-            var soonS = this.y/40+1 == 15 ? 1 : this.y/40+1;
-            var soonQ = this.x/40-1 == -1 ? 1 : this.x/40-1;
-            var soonD = this.x/40+1 == 15 ? 1 : this.x/40+1;
+            var soonZ = this.y / 40 - 1 == -1 ? 1 : this.y / 40 - 1;
+            var soonS = this.y / 40 + 1 == 15 ? 1 : this.y / 40 + 1;
+            var soonQ = this.x / 40 - 1 == -1 ? 1 : this.x / 40 - 1;
+            var soonD = this.x / 40 + 1 == 15 ? 1 : this.x / 40 + 1;
 
-            var z = this.map.getMap()[soonZ][this.x/40];
-            var s = this.map.getMap()[soonS][this.x/40];
-            var q = this.map.getMap()[this.y/40][soonQ];
-            var d = this.map.getMap()[this.y/40][soonD];
+            var z = this.map.getMap()[soonZ][this.x / 40];
+            var s = this.map.getMap()[soonS][this.x / 40];
+            var q = this.map.getMap()[this.y / 40][soonQ];
+            var d = this.map.getMap()[this.y / 40][soonD];
 
-            if (this.keys.left && this.x > 0 && (q == 0 || q == 2 || q == 3 || q == 4 || q == 5 || q == 8)) {
-                allowToMove= false;
+            if (this.keys.left && this.x > 0 && (q == 0 || q == 2 || q == 3 || q == 4 || q == 5 || q == 8 || q == 10)) {
+                allowToMove = false;
                 previousCaseX = this.x;
                 previousCaseY = this.y;
                 nextCaseX -= 40;
                 nextCaseY = this.y;
                 memoireImage = "q";
 
-            } else if (this.keys.right && this.x < 560 && (d == 0 || d == 2 || d == 3 || d == 4 || d == 5 || d == 8)) {
-                allowToMove= false;
+            } else if (this.keys.right && this.x < 560 && (d == 0 || d == 2 || d == 3 || d == 4 || d == 5 || d == 8 || d == 10)) {
+                allowToMove = false;
                 previousCaseX = this.x;
                 previousCaseY = this.y;
                 nextCaseX += 40;
                 nextCaseY = this.y;
                 memoireImage = "d";
 
-            } else if (this.keys.up && this.y > 0 && (z == 0 || z == 2 || z == 3 || z == 4 || z == 5 ||z == 8)) {
-                allowToMove= false;
+            } else if (this.keys.up && this.y > 0 && (z == 0 || z == 2 || z == 3 || z == 4 || z == 5 || z == 8 || z == 10)) {
+                allowToMove = false;
                 previousCaseX = this.x;
                 previousCaseY = this.y;
                 nextCaseY -= 40;
                 nextCaseX = this.x;
                 memoireImage = "z";
 
-            } else if (this.keys.down && this.y < 560 && (s == 0 || s == 2 || s == 3 || s == 4  || s == 5 || s == 8)) {
-                allowToMove= false;
+            } else if (this.keys.down && this.y < 560 && (s == 0 || s == 2 || s == 3 || s == 4 || s == 5 || s == 8 || s == 10)) {
+                allowToMove = false;
                 previousCaseX = this.x;
                 previousCaseY = this.y;
                 nextCaseY += 40;
@@ -81,8 +83,8 @@ class Perso{
                 memoireImage = "s";
 
             }
-            if(this.map.getMap()[this.y/40][this.x/40] == 7 && (q ==7 || q ==0)){
-                if(previousCaseX ==( this.x + 40)){
+            if (this.map.getMap()[this.y / 40][this.x / 40] == 7 && (q == 7 || q == 0)) {
+                if (previousCaseX == (this.x + 40)) {
 
 
                     allowToMove = false;
@@ -91,18 +93,17 @@ class Perso{
                 }
 
 
-
             }
-            if(this.map.getMap()[this.y/40][this.x/40] == 7 && (d ==7 || d ==0)){
-                if(previousCaseX == (this.x - 40)) {
+            if (this.map.getMap()[this.y / 40][this.x / 40] == 7 && (d == 7 || d == 0)) {
+                if (previousCaseX == (this.x - 40)) {
                     allowToMove = false;
                     nextCaseX += 40;
                     nextCaseY = this.y;
                 }
 
             }
-            if(this.map.getMap()[this.y/40][this.x/40] == 7 && (z ==7 || z ==0)){
-                if(previousCaseY == this.y + 40) {
+            if (this.map.getMap()[this.y / 40][this.x / 40] == 7 && (z == 7 || z == 0)) {
+                if (previousCaseY == this.y + 40) {
 
 
                     allowToMove = false;
@@ -111,8 +112,8 @@ class Perso{
                 }
 
             }
-            if(this.map.getMap()[this.y/40][this.x/40] == 7 && (s ==7 || s ==0)){
-                if(previousCaseY == this.y- 40) {
+            if (this.map.getMap()[this.y / 40][this.x / 40] == 7 && (s == 7 || s == 0)) {
+                if (previousCaseY == this.y - 40) {
 
 
                     allowToMove = false;
@@ -123,10 +124,9 @@ class Perso{
             }
 
 
+            for (level = 1; level < 5; level++) {
 
-            for (level = 1;level < 5;level++) {
-
-                if(this.map.getMap()[this.y/40][this.x/40] == 8){
+                if (this.map.getMap()[this.y / 40][this.x / 40] == 8) {
                     var explosion = new Audio();
                     explosion.src = "../MEDIA/explosion.mp3";
                     explosion.play();
@@ -141,7 +141,7 @@ class Perso{
                 }
 
 
-                if(this.map.getMap()[this.y/40][this.x/40] == 5) {
+                if (this.map.getMap()[this.y / 40][this.x / 40] == 5) {
                     var sound4 = new Audio();
                     sound4.src = "../MEDIA/son3.mp3";
                     sound4.play();
@@ -155,17 +155,35 @@ class Perso{
                     }
                 }
             }
+            console.log(nextLevel);
+           if (nextLevel == 1){
+               scoreMin = 60;
+           }
+           if (nextLevel == 2){
+               scoreMin = 120;
+           }
+           if (nextLevel == 3){
+               scoreMin = 400;
+           }
 
 
-            if (this.map.getMap()[this.y/40][this.x/40] == 2){
+
+            if (this.map.getMap()[this.y / 40][this.x / 40] == 2 && score > scoreMin) {
+                console.log(scoreMin);
+                console.log(score);
                 var sound5 = new Audio();
                 sound5.src = "../MEDIA/son4.mp3";
                 sound5.play();
                 nextLevel = nextLevel + 1;
                 //level = level + 1;
-                afficheLevel.innerHTML = "Level : "+nextLevel+"";
+                afficheLevel.innerHTML = "Level : " + nextLevel + "";
                 this.map.addMapLevel(nextLevel);
-            }
+
+                }
+
+
+
+
             if(this.map.getMap()[this.y/40][this.x/40] == 3){
                 this.map.getMap()[this.y/40][this.x/40] = 0;
                 var sound3 = new Audio();
@@ -178,6 +196,24 @@ class Perso{
                 }
                 else  {
                     score = score + 60;
+
+                }
+                afficheScore.innerHTML = "Score : "+score+"";
+
+
+            }
+            if(this.map.getMap()[this.y/40][this.x/40] == 10){
+                this.map.getMap()[this.y/40][this.x/40] = 0;
+                var sound3 = new Audio();
+                sound3.src = "../MEDIA/son2.mp3";
+                sound3.play();
+                var i = Math.round(Math.random());
+                if (i == 1) {
+                    score = score - 100;
+
+                }
+                else  {
+                    score = score + 200;
 
                 }
                 afficheScore.innerHTML = "Score : "+score+"";
@@ -218,33 +254,36 @@ class Perso{
         // on dessine l'image d'index currentIndexImage
         //console.log(currentIndexImage);
         var sprite = 0;
-        compteur ++;
-        if(compteur%5 == 0) {
-            if(sprite+1 > 4) {
+        compteur++;
+        if (compteur % 5 == 0) {
+            if (sprite + 1 > 4) {
                 sprite = 0;
-            }
-            else {
-                sprite ++;
+            } else {
+                sprite++;
             }
 
         }
 
-        ctx.drawImage(characterSprites[currentIndexImage],this.x,this.y);
-       //faire pour les directions
-        compteur ++;
-        if(compteur%5 == 0) {
-            if(currentIndexImage+1 > 4) {
+        ctx.drawImage(characterSprites[currentIndexImage], this.x, this.y);
+        //faire pour les directions
+        compteur++;
+        if (compteur % 5 == 0) {
+            if (currentIndexImage + 1 > 4) {
                 currentIndexImage = 0;
-            }
-            else {
-                currentIndexImage ++;
+            } else {
+                currentIndexImage++;
             }
 
         }
 
-        if(currentIndexImage  == 4) currentIndexImage = 0;
+        if (currentIndexImage == 4) currentIndexImage = 0;
         this.ctx.restore();
+
+
 }
+
+
+
 
 
     
