@@ -127,6 +127,9 @@ class Perso{
             for (level = 1;level < 5;level++) {
 
                 if(this.map.getMap()[this.y/40][this.x/40] == 8){
+                    var explosion = new Audio();
+                    explosion.src = "../MEDIA/explosion.mp3";
+                    explosion.play();
                     this.map.getMap()[this.y / 40][this.x / 40] = 0;
                     for (var x = 0; x < 15; x++) {
                         for (var y = 0; y < 15; y++) {
