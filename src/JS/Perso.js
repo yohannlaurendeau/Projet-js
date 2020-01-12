@@ -3,8 +3,8 @@ var allowToMove = true;
 
 var compteur = 0;
 
-var nextCaseX = 0*80;
-var nextCaseY = 2*80;
+var nextCaseX = 0*40;
+var nextCaseY = 2*40;
 
 var previousCaseX;
 var previousCaseY;
@@ -28,8 +28,8 @@ class Perso{
         this.ctx = ctx;
         this.keys = keys;
         this.map = map;
-        this.x = 0*80;
-        this.y = 2*80;
+        this.x = 0*40;
+        this.y = 2*40;
     }
 
 
@@ -38,29 +38,29 @@ class Perso{
 
         if(allowToMove) {
 
-            var soonZ = this.y/80-1 == -1 ? 1 : this.y/80-1;
-            var soonS = this.y/80+1 == 10 ? 1 : this.y/80+1;
-            var soonQ = this.x/80-1 == -1 ? 1 : this.x/80-1;
-            var soonD = this.x/80+1 == 10 ? 1 : this.x/80+1;
+            var soonZ = this.y/40-1 == -1 ? 1 : this.y/40-1;
+            var soonS = this.y/40+1 == 15 ? 1 : this.y/40+1;
+            var soonQ = this.x/40-1 == -1 ? 1 : this.x/40-1;
+            var soonD = this.x/40+1 == 15 ? 1 : this.x/40+1;
 
-            var z = this.map.getMap()[soonZ][this.x/80];
-            var s = this.map.getMap()[soonS][this.x/80];
-            var q = this.map.getMap()[this.y/80][soonQ];
-            var d = this.map.getMap()[this.y/80][soonD];
+            var z = this.map.getMap()[soonZ][this.x/40];
+            var s = this.map.getMap()[soonS][this.x/40];
+            var q = this.map.getMap()[this.y/40][soonQ];
+            var d = this.map.getMap()[this.y/40][soonD];
 
             if (this.keys.left && this.x > 0 && (q == 0 || q == 2 || q == 3 || q == 4 || q == 5 || q == 7)) {
                 allowToMove= false;
                 previousCaseX = this.x;
                 previousCaseY = this.y;
-                nextCaseX -= 800 / 10;
+                nextCaseX -= 40;
                 nextCaseY = this.y;
                 memoireImage = "q";
 
-            } else if (this.keys.right && this.x < 720 && (d == 0 || d == 2 || d == 3 || d == 4 || d == 5 || d == 7)) {
+            } else if (this.keys.right && this.x < 560 && (d == 0 || d == 2 || d == 3 || d == 4 || d == 5 || d == 7)) {
                 allowToMove= false;
                 previousCaseX = this.x;
                 previousCaseY = this.y;
-                nextCaseX += 800 / 10;
+                nextCaseX += 40;
                 nextCaseY = this.y;
                 memoireImage = "d";
 
@@ -68,55 +68,55 @@ class Perso{
                 allowToMove= false;
                 previousCaseX = this.x;
                 previousCaseY = this.y;
-                nextCaseY -= 800 / 10;
+                nextCaseY -= 40;
                 nextCaseX = this.x;
                 memoireImage = "z";
 
-            } else if (this.keys.down && this.y < 720 && (s == 0 || s == 2 || s == 3 || s == 4  || s == 5 || s == 7)) {
+            } else if (this.keys.down && this.y < 560 && (s == 0 || s == 2 || s == 3 || s == 4  || s == 5 || s == 7)) {
                 allowToMove= false;
                 previousCaseX = this.x;
                 previousCaseY = this.y;
-                nextCaseY += 800 / 10;
+                nextCaseY += 40;
                 nextCaseX = this.x;
                 memoireImage = "s";
 
             }
-            if(this.map.getMap()[this.y/80][this.x/80] == 7 && (q ==7 || q ==0)){
-                if(previousCaseX ==( this.x + 80)){
+            if(this.map.getMap()[this.y/40][this.x/40] == 7 && (q ==7 || q ==0)){
+                if(previousCaseX ==( this.x + 40)){
 
 
                     allowToMove = false;
-                    nextCaseX -= 800 / 10;
+                    nextCaseX -= 40;
                     nextCaseY = this.y;
                 }
 
 
 
             }
-            if(this.map.getMap()[this.y/80][this.x/80] == 7 && (d ==7 || d ==0)){
-                if(previousCaseX == (this.x - 80)) {
+            if(this.map.getMap()[this.y/40][this.x/40] == 7 && (d ==7 || d ==0)){
+                if(previousCaseX == (this.x - 40)) {
                     allowToMove = false;
-                    nextCaseX += 800 / 10;
+                    nextCaseX += 40;
                     nextCaseY = this.y;
                 }
 
             }
-            if(this.map.getMap()[this.y/80][this.x/80] == 7 && (z ==7 || z ==0)){
-                if(previousCaseY == this.y + 80) {
+            if(this.map.getMap()[this.y/40][this.x/40] == 7 && (z ==7 || z ==0)){
+                if(previousCaseY == this.y + 40) {
 
 
                     allowToMove = false;
-                    nextCaseY -= 800 / 10;
+                    nextCaseY -= 40;
                     nextCaseX = this.x;
                 }
 
             }
-            if(this.map.getMap()[this.y/80][this.x/80] == 7 && (s ==7 || s ==0)){
-                if(previousCaseY == this.y- 80) {
+            if(this.map.getMap()[this.y/40][this.x/40] == 7 && (s ==7 || s ==0)){
+                if(previousCaseY == this.y- 40) {
 
 
                     allowToMove = false;
-                    nextCaseY += 800 / 10;
+                    nextCaseY += 40;
                     nextCaseX = this.x;
                 }
 
@@ -129,13 +129,13 @@ class Perso{
 
 
             for (level = 1;level < 5;level++) {
-                if(this.map.getMap()[this.y/80][this.x/80] == 5) {
+                if(this.map.getMap()[this.y/40][this.x/40] == 5) {
                     var sound4 = new Audio();
                     sound4.src = "../MEDIA/son3.mp3";
                     sound4.play();
-                    this.map.getMap()[this.y / 80][this.x / 80] = 0;
-                    for (var x = 0; x < 10; x++) {
-                        for (var y = 0; y < 10; y++) {
+                    this.map.getMap()[this.y / 40][this.x / 40] = 0;
+                    for (var x = 0; x < 15; x++) {
+                        for (var y = 0; y < 15; y++) {
                             if (this.map.getMap()[x][y] == 6) {
                                 this.map.getMap()[x][y] = 2;
                             }
@@ -145,7 +145,7 @@ class Perso{
             }
 
 
-            if (this.map.getMap()[this.y/80][this.x/80] == 2){
+            if (this.map.getMap()[this.y/40][this.x/40] == 2){
                 var sound5 = new Audio();
                 sound5.src = "../MEDIA/son4.mp3";
                 sound5.play();
@@ -154,8 +154,8 @@ class Perso{
                 afficheLevel.innerHTML = "Level : "+nextLevel+"";
                 this.map.addMapLevel(nextLevel);
             }
-            if(this.map.getMap()[this.y/80][this.x/80] == 3){
-                this.map.getMap()[this.y/80][this.x/80] = 0;
+            if(this.map.getMap()[this.y/40][this.x/40] == 3){
+                this.map.getMap()[this.y/40][this.x/40] = 0;
                 var sound3 = new Audio();
                 sound3.src = "../MEDIA/son2.mp3";
                 sound3.play();

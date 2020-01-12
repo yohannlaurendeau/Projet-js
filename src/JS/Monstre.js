@@ -5,21 +5,21 @@ class Monstre {
     constructor(ctx, map) {
         this.ctx = ctx;
         this.map = map;
-        this.x = 7 * 80;
-        this.y = 5 * 80;
+        this.x = 7 * 40;
+        this.y = 5 * 450;
     }
 
     move() {
 
-        var soonZ = this.y / 80 - 1 == -1 ? 1 : this.y / 80 - 1;
-        var soonS = this.y / 80 + 1 == 10 ? 1 : this.y / 80 + 1;
-        var soonQ = this.x / 80 - 1 == -1 ? 1 : this.x / 80 - 1;
-        var soonD = this.x / 80 + 1 == 10 ? 1 : this.x / 80 + 1;
+        var soonZ = this.y / 40 - 1 == -1 ? 1 : this.y / 40 - 1;
+        var soonS = this.y / 40 + 1 == 15 ? 1 : this.y / 40 + 1;
+        var soonQ = this.x / 40 - 1 == -1 ? 1 : this.x / 40 - 1;
+        var soonD = this.x / 40 + 1 == 15 ? 1 : this.x / 40 + 1;
 
-        var z = this.map.getMap()[soonZ][this.x / 80];
-        var s = this.map.getMap()[soonS][this.x / 80];
-        var q = this.map.getMap()[this.y / 80][soonQ];
-        var d = this.map.getMap()[this.y / 80][soonD];
+        var z = this.map.getMap()[soonZ][this.x / 40];
+        var s = this.map.getMap()[soonS][this.x / 40];
+        var q = this.map.getMap()[this.y / 40][soonQ];
+        var d = this.map.getMap()[this.y / 40][soonD];
 
         var random = Math.round(Math.random() * 2);
 
@@ -31,13 +31,13 @@ class Monstre {
         if (random == 0) {
             if (Parcoursx%5 == 0) {
                 if (this.x > 0 && (q == 0 || q == 3 || q == 4 || q == 5)) {
-                    this.x -= 80;
+                    this.x -= 40;
                     memoireImageMonstre = "q";
                 }
             }
             else if(Parcoursx%10 == 0){
-                if (this.x < 720 && (d == 0 || d == 3 || d == 4 || d== 5)) {
-                    this.x += 80;
+                if (this.x < 1120 && (d == 0 || d == 3 || d == 4 || d== 5)) {
+                    this.x += 40;
                     memoireImageMonstre = "d";
                 }
 
@@ -50,12 +50,12 @@ class Monstre {
         if (random == 1) {
             if (Parcoursy%10 == 0){
                 if (this.y > 0 && (z == 0 || z == 3 || z == 4 || z == 5)) {
-                    this.y -= 80;
+                    this.y -= 40;
                     memoireImageMonstre = "z";
                 }
                 if (Parcoursy%5 == 0){
-                    if (this.y > 0 && (s == 0 || s == 3 || s == 4 || s == 5)) {
-                        this.y += 80;
+                    if (this.y < 1120 && (s == 0 || s == 3 || s == 4 || s == 5)) {
+                        this.y += 40;
                         memoireImageMonstre = "*s";
                     }
 
