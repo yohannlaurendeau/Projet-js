@@ -189,8 +189,8 @@ class Perso{
                 var sound3 = new Audio();
                 sound3.src = "../MEDIA/son2.mp3";
                 sound3.play();
-                var i = Math.round(Math.random());
-                if (i == 1) {
+                var i = Math.round(Math.random() * 10);
+                if (i == 1 || i == 2 || i == 3) {
                     score = score - 40;
 
                 }
