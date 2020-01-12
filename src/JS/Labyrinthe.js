@@ -153,14 +153,37 @@ class GameMap {
 
 }
 
+function instructions(){
+    title.innerHTML = 'Comment jouer ?';
+    title.style.left = '190px';
+    buttonsDiv[0].style.visibility = 'hidden';
+
+    var afficheRegles = document.createElement("p");
+    afficheRegles.setAttribute("id","regles");
+    afficheRegles.innerHTML = "Le but est simple, vous devez obtenir à travers ce labyrinthe<br/> le meilleur score possible en marchant sur les cases '?' et '!'.<br/><br/>Mais attention ! Les case '?' et '!' peuvent être des cases pièges<br/> vous faisant diminuer le score.<br/><br/>Pour passer les différents niveaux,vous devez détruire la pierre<br/> bloquant le passage à la clé qui permettra l'ouverture de la porte.<br/><br/><b>Le choix des cases est vôtre, bonne aventure !</b>";
+    document.body.appendChild(afficheRegles);
+
+    var btnRetour = document.createElement("BUTTON");
+    btnRetour.innerHTML = "Retour";
+    btnRetour.setAttribute("id", "btnRetour");
+    btnRetour.onclick = function () {
+        buttonsDiv[0].style.visibility = 'visible';
+        afficheRegles.style.visibility = 'hidden';
+        title.innerHTML = 'Adventure game !';
+        btnRetour.style.visibility = 'hidden'; 
+        sound.play();
+    };
+    document.body.appendChild(btnRetour);
+}
+
 function highScore(){
     //Mettre ici l'affichage de mon array 
     title.innerHTML = 'Your current score';
     title.style.left = '190px';
     buttonsDiv[0].style.visibility = 'hidden';
 
-    var afficheNom = document.createElement("p");
-    afficheNom.setAttribute("id","nom");
+    var afficheNom = document.createElement("div");
+    afficheNom.setAttribute("div","nom");
 
     if (sessionStorage.getItem('nomJoueur') && sessionStorage.getItem('scoreJoueur')){
         //Restauration du contenu du champ        
@@ -204,20 +227,20 @@ function start() {
 
     var mapJeu = [
         [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-        [1,0,1,1,1,1,1,1,1,1,1,1,1,1,1],
-        [0,0,0,0,3,1,1,1,1,1,1,1,1,1,1],
-        [1,1,0,0,10,0,0,1,1,1,0,0,1,1,1],
-        [1,1,1,3,1,0,0,0,0,0,0,3,0,3,6],
-        [1,1,0,0,0,0,3,0,3,1,0,0,3,0,0],
-        [1,1,9,0,3,1,0,3,1,1,0,0,0,0,0],
-        [1,5,0,1,1,1,1,1,1,1,8,0,0,0,0],
-        [1,0,1,1,1,1,1,1,1,1,1,0,0,0,0],
-        [1,1,1,1,1,1,1,1,1,1,0,0,0,0,0],
-        [1,1,1,1,1,1,1,1,1,1,0,0,0,0,0],
-        [1,1,1,1,1,1,1,1,1,1,0,0,0,0,0],
-        [1,1,1,1,1,1,1,1,1,1,0,0,0,0,0],
-        [1,1,1,1,1,1,1,1,1,1,0,0,0,0,0],
-        [1,1,1,1,1,1,1,1,1,1,0,0,0,0,0]
+        [1,3,1,1,1,1,1,0,1,1,0,0,0,0,0],
+        [0,0,0,0,0,1,1,3,0,0,0,1,1,0,3],
+        [1,1,0,0,0,0,0,1,1,1,0,0,1,1,1],
+        [1,1,1,3,1,1,0,0,0,0,0,0,0,0,6],
+        [5,1,0,0,0,0,0,0,0,1,0,0,0,1,1],
+        [0,1,0,0,3,1,0,0,1,1,0,0,0,0,3],
+        [0,9,0,1,1,1,1,1,0,0,0,0,1,0,1],
+        [1,1,1,1,1,0,0,0,0,1,1,0,1,3,1],
+        [1,1,1,1,1,10,0,1,1,1,0,0,1,0,1],
+        [1,1,1,3,1,1,1,1,1,1,0,0,0,0,1],
+        [1,1,0,0,0,0,0,0,0,1,0,1,1,0,1],
+        [1,1,1,0,0,0,1,1,0,1,0,1,1,0,1],
+        [1,1,10,0,0,0,1,1,0,3,0,1,0,3,1],
+        [1,1,1,1,8,1,1,1,1,1,1,1,1,1,1]
     ]
 
     this.map = new GameMap(this.ctx, mapJeu);
@@ -247,7 +270,6 @@ function soundGestion(){
         sound2.play();
     }
 }
-
 
 
 function anime() {
