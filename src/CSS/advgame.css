@@ -14,42 +14,39 @@ body{
 #title{
   position: absolute;
   top: 50px;
-  left: 260px;
+  left: 235px;
   color: white;
   font-family: fantasy;
-  font-size: 40px;
+  font-size: 50px;
 }
 
-.buttons {
+.buttonsDiv {
   position: absolute;
   display: inline-grid;
   grid-row-gap: 100px;
-  top: 300px;
-  left: 320px;
+  top: 250px;
+  left: 310px;
 }
 
-#startBtn {
-  width: 150px;
-  height: 50px;
-  border-radius: 12px;
+.buttons {
+  width: 190px;
+  height: 70px;
   font-size:20px;
+  color: white;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #60a3bc;
+  padding: 20px;
+  border-radius: 50px;
+  display: inline-block;
+  border: none;
 }
 
-#startBtn:hover {
-  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+.buttons:hover {
+  text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+  -webkit-box-shadow: 0px 5px 80px -10px white;
+  -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);  
 }
-
-#scoreBtn {
-  width: 150px;
-  height: 50px;
-  border-radius: 12px;
-  font-size:20px;
-}
-
-#scoreBtn:hover {
-  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-}
-
 
 /* AFFICHAGE */
 
@@ -77,9 +74,20 @@ body{
   width: 150px;
   height: 50px;
   top: 625px;
-  left: 320px;
-  border-radius: 12px;
+  left: 340px;
   font-size:20px;
+  color: white;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #60a3bc;  
+  border-radius: 50px;
+  border: none;
+}
+
+#btnRetour:hover {
+  text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+  -webkit-box-shadow: 0px 5px 80px -10px white;
+  -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);  
 }
 
 

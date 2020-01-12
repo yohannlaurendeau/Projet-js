@@ -1,5 +1,5 @@
 var title = document.getElementById('title');
-var buttons = document.getElementsByClassName('buttons');
+var buttonsDiv = document.getElementsByClassName('buttonsDiv');
 var afficheLevel = document.getElementById("level");
 var afficheScore = document.getElementById("score");
 
@@ -126,8 +126,8 @@ class GameMap {
 function highScore(){
     //Mettre ici l'affichage de mon array 
     title.innerHTML = 'Your current score';
-    title.style.left = '260px';
-    buttons[0].style.visibility = 'hidden';
+    title.style.left = '215px';
+    buttonsDiv[0].style.visibility = 'hidden';
 
     var afficheNom = document.createElement("p");
     afficheNom.setAttribute("id","nom");
@@ -142,10 +142,9 @@ function highScore(){
     btnRetour.innerHTML = "Retour";
     btnRetour.setAttribute("id", "btnRetour");
     btnRetour.onclick = function () {
-        buttons[0].style.visibility = 'visible';
+        buttonsDiv[0].style.visibility = 'visible';
         afficheNom.style.visibility = 'hidden';
         title.innerHTML = 'Adventure game !';
-        title.style.left = '260px';
         btnRetour.style.visibility = 'hidden'; 
         sound.play();
     };
@@ -155,7 +154,7 @@ function highScore(){
 
 function start() {
     title.style.display = 'none';
-    buttons[0].style.visibility = 'hidden';
+    buttonsDiv[0].style.visibility = 'hidden';
     canvas = document.querySelector('#canvas') ;
     this.ctx = canvas.getContext('2d') ;
     nextLevel = 1;
