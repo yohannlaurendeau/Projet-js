@@ -156,7 +156,7 @@ class GameMap {
 function highScore(){
     //Mettre ici l'affichage de mon array 
     title.innerHTML = 'Your current score';
-    title.style.left = '215px';
+    title.style.left = '190px';
     buttonsDiv[0].style.visibility = 'hidden';
 
     var afficheNom = document.createElement("p");
