@@ -48,7 +48,7 @@ class Perso{
             var q = this.map.getMap()[this.y/40][soonQ];
             var d = this.map.getMap()[this.y/40][soonD];
 
-            if (this.keys.left && this.x > 0 && (q == 0 || q == 2 || q == 3 || q == 4 || q == 5 || q == 7)) {
+            if (this.keys.left && this.x > 0 && (q == 0 || q == 2 || q == 3 || q == 4 || q == 5 || q == 8)) {
                 allowToMove= false;
                 previousCaseX = this.x;
                 previousCaseY = this.y;
@@ -56,7 +56,7 @@ class Perso{
                 nextCaseY = this.y;
                 memoireImage = "q";
 
-            } else if (this.keys.right && this.x < 560 && (d == 0 || d == 2 || d == 3 || d == 4 || d == 5 || d == 7)) {
+            } else if (this.keys.right && this.x < 560 && (d == 0 || d == 2 || d == 3 || d == 4 || d == 5 || d == 8)) {
                 allowToMove= false;
                 previousCaseX = this.x;
                 previousCaseY = this.y;
@@ -64,7 +64,7 @@ class Perso{
                 nextCaseY = this.y;
                 memoireImage = "d";
 
-            } else if (this.keys.up && this.y > 0 && (z == 0 || z == 2 || z == 3 || z == 4 || z == 5 ||z == 7)) {
+            } else if (this.keys.up && this.y > 0 && (z == 0 || z == 2 || z == 3 || z == 4 || z == 5 ||z == 8)) {
                 allowToMove= false;
                 previousCaseX = this.x;
                 previousCaseY = this.y;
@@ -72,7 +72,7 @@ class Perso{
                 nextCaseX = this.x;
                 memoireImage = "z";
 
-            } else if (this.keys.down && this.y < 560 && (s == 0 || s == 2 || s == 3 || s == 4  || s == 5 || s == 7)) {
+            } else if (this.keys.down && this.y < 560 && (s == 0 || s == 2 || s == 3 || s == 4  || s == 5 || s == 8)) {
                 allowToMove= false;
                 previousCaseX = this.x;
                 previousCaseY = this.y;
@@ -124,11 +124,20 @@ class Perso{
 
 
 
-
-
-
-
             for (level = 1;level < 5;level++) {
+
+                if(this.map.getMap()[this.y/40][this.x/40] == 8){
+                    this.map.getMap()[this.y / 40][this.x / 40] = 0;
+                    for (var x = 0; x < 15; x++) {
+                        for (var y = 0; y < 15; y++) {
+                            if (this.map.getMap()[x][y] == 9) {
+                                this.map.getMap()[x][y] = 0;
+                            }
+                        }
+                    }
+                }
+
+
                 if(this.map.getMap()[this.y/40][this.x/40] == 5) {
                     var sound4 = new Audio();
                     sound4.src = "../MEDIA/son3.mp3";
