@@ -118,8 +118,8 @@ function highScore(){
     title.style.left = '190px';
     buttonsDiv[0].style.visibility = 'hidden';
 
-    var afficheNom = document.createElement("div");
-    afficheNom.setAttribute("div","nom");
+    var afficheNom = document.createElement("p");
+    afficheNom.setAttribute("id","nom");
 
     if (sessionStorage.getItem('nomJoueur') && sessionStorage.getItem('scoreJoueur')){
         //Restauration du contenu du champ        
