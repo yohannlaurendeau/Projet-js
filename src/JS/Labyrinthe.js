@@ -48,14 +48,14 @@ class GameMap {
                 [1,1,0,1,0,1,0,3,1,1,1,0,1,0,1],
                 [1,0,0,1,0,1,0,0,1,1,1,0,3,0,1],
                 [1,9,1,1,0,0,0,0,0,0,0,0,1,0,1],
-                [1,10,0,1,0,1,0,1,0,1,0,0,1,0,1],
+                [1,0,10,1,0,1,0,1,0,1,0,0,1,0,1],
                 [1,0,5,1,8,1,1,1,3,1,0,0,0,3,1],
                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
             ]
         } else if (level == 3) {
             this.map2 = [
-                [0,0,0,0,0,0,0,0,1,10,0,3,0,0,0],
-                [0,1,1,1,1,1,1,0,1,1,0,1,0,1,0],
+                [0,0,0,0,0,0,0,0,1,10,0,0,0,0,0],
+                [0,1,1,1,1,1,1,0,1,1,0,1,0,1,3],
                 [0,0,3,1,1,1,0,0,0,0,0,1,0,1,1],
                 [1,1,1,1,1,1,1,1,0,1,1,0,0,0,0],
                 [1,1,1,1,1,1,1,10,0,1,1,1,1,1,0],
@@ -96,7 +96,7 @@ function instructions(){
 
     var afficheRegles = document.createElement("p");
     afficheRegles.setAttribute("id","regles");
-    afficheRegles.innerHTML = "Le but est simple, vous devez obtenir à travers ce labyrinthe<br/> le meilleur score possible en marchant sur les cases '?' et '!'.<br/><br/>Mais attention ! Les case '?' et '!' peuvent être des cases pièges<br/> vous faisant diminuer le score.<br/><br/>Pour passer les différents niveaux,vous devez détruire la pierre<br/> bloquant le passage à la clé qui permettra l'ouverture de la porte.<br/><br/><b>Le choix des cases est vôtre, bonne aventure !</b>";
+    afficheRegles.innerHTML = "Le but est simple, vous devez obtenir à travers ce labyrinthe<br/> le meilleur score possible en marchant sur les cases '?' et '!'.<br/><br/>Mais attention ! Les case '?' et '!' peuvent être des cases pièges<br/> vous faisant diminuer le score.<br/><br/>Pour passer les différents niveaux,vous devez détruire la pierre<br/> bloquant le passage à la clé qui permettra l'ouverture de la porte.<br/><br/>Cependant, il faut un score minimial pour pouvoir passer au niveau<br/> suivant !<br/><br/><b>Le choix des cases est vôtre, bonne aventure !</b>";
     document.body.appendChild(afficheRegles);
 
     var btnRetour = document.createElement("BUTTON");

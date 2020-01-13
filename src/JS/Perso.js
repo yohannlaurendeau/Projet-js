@@ -6,8 +6,7 @@ var compteur = 0;
 var nextCaseX = 0*40;
 var nextCaseY = 2*40;
 
-var previousCaseX;
-var previousCaseY;
+
 
 var victoire = false;
 
@@ -52,79 +51,37 @@ class Perso{
 
             if (this.keys.left && this.x > 0 && (q == 0 || q == 2 || q == 3 || q == 4 || q == 5 || q == 8 || q == 10)) {
                 allowToMove = false;
-                previousCaseX = this.x;
-                previousCaseY = this.y;
+            
                 nextCaseX -= 40;
                 nextCaseY = this.y;
                 memoireImage = "q";
 
             } else if (this.keys.right && this.x < 560 && (d == 0 || d == 2 || d == 3 || d == 4 || d == 5 || d == 8 || d == 10)) {
                 allowToMove = false;
-                previousCaseX = this.x;
-                previousCaseY = this.y;
+                
                 nextCaseX += 40;
                 nextCaseY = this.y;
                 memoireImage = "d";
 
             } else if (this.keys.up && this.y > 0 && (z == 0 || z == 2 || z == 3 || z == 4 || z == 5 || z == 8 || z == 10)) {
                 allowToMove = false;
-                previousCaseX = this.x;
-                previousCaseY = this.y;
+               
                 nextCaseY -= 40;
                 nextCaseX = this.x;
                 memoireImage = "z";
 
             } else if (this.keys.down && this.y < 560 && (s == 0 || s == 2 || s == 3 || s == 4 || s == 5 || s == 8 || s == 10)) {
                 allowToMove = false;
-                previousCaseX = this.x;
-                previousCaseY = this.y;
+                
                 nextCaseY += 40;
                 nextCaseX = this.x;
                 memoireImage = "s";
 
             }
-            if (this.map.getMap()[this.y / 40][this.x / 40] == 7 && (q == 7 || q == 0)) {
-                if (previousCaseX == (this.x + 40)) {
+                        
 
 
-                    allowToMove = false;
-                    nextCaseX -= 40;
-                    nextCaseY = this.y;
-                }
-
-
-            }
-            if (this.map.getMap()[this.y / 40][this.x / 40] == 7 && (d == 7 || d == 0)) {
-                if (previousCaseX == (this.x - 40)) {
-                    allowToMove = false;
-                    nextCaseX += 40;
-                    nextCaseY = this.y;
-                }
-
-            }
-            if (this.map.getMap()[this.y / 40][this.x / 40] == 7 && (z == 7 || z == 0)) {
-                if (previousCaseY == this.y + 40) {
-
-
-                    allowToMove = false;
-                    nextCaseY -= 40;
-                    nextCaseX = this.x;
-                }
-
-            }
-            if (this.map.getMap()[this.y / 40][this.x / 40] == 7 && (s == 7 || s == 0)) {
-                if (previousCaseY == this.y - 40) {
-
-
-                    allowToMove = false;
-                    nextCaseY += 40;
-                    nextCaseX = this.x;
-                }
-
-            }
-
-
-            for (level = 1; level < 5; level++) {
+            for (level = 1; level < 4; level++) {
 
                 if (this.map.getMap()[this.y / 40][this.x / 40] == 8) {
                     var explosion = new Audio();
