@@ -49,28 +49,28 @@ class Perso{
             var q = this.map.getMap()[this.y / 40][soonQ];
             var d = this.map.getMap()[this.y / 40][soonD];
 
-            if (this.keys.left && this.x > 0 && (q == 0 || q == 2 || q == 3 || q == 4 || q == 5 || q == 8 || q == 10)) {
+            if (this.keys.left && this.x > 0 && (q == 0 || q == 2 || q == 3 || q == 4 || q == 5 || q == 8 || q == 10 || q == 11)) {
                 allowToMove = false;
             
                 nextCaseX -= 40;
                 nextCaseY = this.y;
                 memoireImage = "q";
 
-            } else if (this.keys.right && this.x < 560 && (d == 0 || d == 2 || d == 3 || d == 4 || d == 5 || d == 8 || d == 10)) {
+            } else if (this.keys.right && this.x < 560 && (d == 0 || d == 2 || d == 3 || d == 4 || d == 5 || d == 8 || d == 10 || d == 11)) {
                 allowToMove = false;
                 
                 nextCaseX += 40;
                 nextCaseY = this.y;
                 memoireImage = "d";
 
-            } else if (this.keys.up && this.y > 0 && (z == 0 || z == 2 || z == 3 || z == 4 || z == 5 || z == 8 || z == 10)) {
+            } else if (this.keys.up && this.y > 0 && (z == 0 || z == 2 || z == 3 || z == 4 || z == 5 || z == 8 || z == 10 || z == 11)) {
                 allowToMove = false;
                
                 nextCaseY -= 40;
                 nextCaseX = this.x;
                 memoireImage = "z";
 
-            } else if (this.keys.down && this.y < 560 && (s == 0 || s == 2 || s == 3 || s == 4 || s == 5 || s == 8 || s == 10)) {
+            } else if (this.keys.down && this.y < 560 && (s == 0 || s == 2 || s == 3 || s == 4 || s == 5 || s == 8 || s == 10 || s == 11)) {
                 allowToMove = false;
                 
                 nextCaseY += 40;
@@ -97,6 +97,19 @@ class Perso{
                     }
                 }
 
+                if (this.map.getMap()[this.y / 40][this.x / 40] == 11) {
+                    var explosion = new Audio();
+                    explosion.src = "../MEDIA/explosion.mp3";
+                    explosion.play();
+                    this.map.getMap()[this.y / 40][this.x / 40] = 0;
+                    for (var x = 0; x < 15; x++) {
+                        for (var y = 0; y < 15; y++) {
+                            if (this.map.getMap()[x][y] == 12) {
+                                this.map.getMap()[x][y] = 0;
+                            }
+                        }
+                    }
+                }
 
                 if (this.map.getMap()[this.y / 40][this.x / 40] == 5) {
                     var sound4 = new Audio();
