@@ -205,7 +205,7 @@ class Perso{
             if(this.map.getMap()[this.y/40][this.x/40] == 10){
                 this.map.getMap()[this.y/40][this.x/40] = 0;
                 var sound3 = new Audio();
-                sound3.src = "../MEDIA/son2.mp3";
+                sound3.src = "../MEDIA/son5.mp3";
                 sound3.play();
                 var i = Math.round(Math.random());
                 if (i == 1) {
